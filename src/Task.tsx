@@ -1,0 +1,102 @@
+import React, { ChangeEventHandler, useState, useEffect, useContext } from 'react'; // we need this to make JSX compile
+import { TaskData } from './types'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import _ from 'lodash';
+import classNames from 'classnames';
+import axios from 'axios';
+import FormMode from './FormMode';
+import ServerAction from './ServerAction';
+
+type FormState = {
+    formMode: FormMode,
+    activeId: number,
+}
+type TaskProps = {
+    data: TaskData,
+    acitiveProject: number | null,
+    tasks: Array<TaskData>,
+    updateTask: Function,
+    formState: FormState,
+    setFormState: Function,
+    refreshTasks: Function
+};
+
+const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState, refreshTasks }: TaskProps) => {
+// const Task = ({ data: { content, id, dateCompleted }, tasks, acitiveProject, upd }: TaskProps) => {
+    let { content, id, dateCompleted } = data;
+
+    const showInput = formState.activeId === id && formState.formMode !== FormMode.READ;
+
+    const [showControls, setShowControls] = useState(false);
+    const [text, setText] = useState(content);
+
+    const isDone = !_.isUndefined(dateCompleted); // TODO: maybe change
+
+    const className = classNames("col-11", {'task-done': isDone});
+
+    const onCheck: ChangeEventHandler = () => {
+        const action: ServerAction = isDone ? ServerAction.UNDONE : ServerAction.DONE;
+        updateTask(data, action);
+    };
+
+    const onEditClick = () => {
+        setFormState({formMode: FormMode.EDIT, activeId: id});
+    };
+    const onCancelClick = () => {
+        setFormState({formMode: FormMode.READ, activeId: -1});
+        refreshTasks();
+    };
+    const onSaveClick = async () => {
+        const action = id === 0 ? ServerAction.CREATE : ServerAction.UPDATE;
+        await updateTask({...data, content: text}, action);
+        setFormState({formMode: FormMode.READ, activeId: -1});
+    };
+    const children = tasks
+        .filter(task => task.parentId === id)
+        .map(task => (
+            <Task
+                key={_.uniqueId()}
+                data={task}
+                tasks={tasks}
+                acitiveProject={acitiveProject}
+                updateTask={updateTask}
+                formState={formState}
+                setFormState={setFormState}
+                refreshTasks={refreshTasks}
+            />
+        ));
+    let element;
+    if (showInput) {
+        element =
+            <li className='row'>
+                <Form.Group className="col-10">
+                    {/* <Form.Label>Email address</Form.Label> */}
+                    <Form.Control type="text" value={text} placeholder="What do you want to do?" onChange={(e) => setText(e.target.value)} />
+                </Form.Group>
+                <div className='col-2'>
+                    <Button variant="outline-primary" onClick={onCancelClick} size="sm">&#128473;</Button>
+                    <Button variant="outline-primary" onClick={onSaveClick} size="sm">&#128190;</Button>
+                </div>
+            </li>
+    } else {
+        element = <li onMouseEnter={() => setShowControls(!isDone)} onMouseLeave={() => setShowControls(false)} className="row">
+            <Form.Check className={className} defaultChecked={isDone} type="checkbox" label={text} onChange={onCheck} />
+            {showControls && formState.formMode === FormMode.READ && (
+                <div className='col-1'>
+                    <Button variant="outline-primary" onClick={onEditClick} size="sm">&#9998;</Button>
+                </div>
+            )}
+        </li>
+    }
+    return (<>
+        {element}
+        {children.length > 0 &&
+            (<ul>
+                {children}
+            </ul>)
+        }
+    </>);
+};
+
+export default Task;

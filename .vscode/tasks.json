@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "typescript",
+			"tsconfig": "tsconfig.json",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build",
+			"label": "tsc: build - tsconfig.json"
+		},
+		{
+			"type": "npm",
+			"script": "webpack",
+			"problemMatcher": [],
+			"label": "npm: webpack",
+			"detail": "webpack"
+		},
+		{
+			"type": "shell",
+			"command": "webpack serve",
+			"problemMatcher": [],
+			"label": "webpack serve",
+			"detail": "webpack serve"
+		}
+	]
+}
