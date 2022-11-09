@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import axios from 'axios';
 import FormMode from './FormMode';
 import ServerAction from './ServerAction';
+import Modal from 'react-bootstrap/Modal';
 
 type FormState = {
     formMode: FormMode,
@@ -30,16 +31,25 @@ const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState
 
     const [showControls, setShowControls] = useState(false);
     const [text, setText] = useState(content);
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
     const isDone = !_.isUndefined(dateCompleted); // TODO: maybe change
 
-    const className = classNames("col-11", {'task-done': isDone});
+    const className = classNames("col-10", {'task-done': isDone});
 
     const onCheck: ChangeEventHandler = () => {
         const action: ServerAction = isDone ? ServerAction.UNDONE : ServerAction.DONE;
         updateTask(data, action);
     };
 
+    const onDeleteClick = () => {
+        setShowDeleteDialog(true);
+    };
+    const deleteTask = async () => {
+        const action = ServerAction.DELETE;
+        await updateTask(data, action);
+        setFormState({formMode: FormMode.READ, activeId: -1});
+    };
     const onEditClick = () => {
         setFormState({formMode: FormMode.EDIT, activeId: id});
     };
@@ -52,6 +62,7 @@ const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState
         await updateTask({...data, content: text}, action);
         setFormState({formMode: FormMode.READ, activeId: -1});
     };
+    const onDialogClose = () => setShowDeleteDialog(false);
     const children = tasks
         .filter(task => task.parentId === id)
         .map(task => (
@@ -83,7 +94,8 @@ const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState
         element = <li onMouseEnter={() => setShowControls(!isDone)} onMouseLeave={() => setShowControls(false)} className="row">
             <Form.Check className={className} defaultChecked={isDone} type="checkbox" label={text} onChange={onCheck} />
             {showControls && formState.formMode === FormMode.READ && (
-                <div className='col-1'>
+                <div className='col-2'>
+                    <Button variant="outline-primary" onClick={onDeleteClick} size="sm">&#128465;</Button>
                     <Button variant="outline-primary" onClick={onEditClick} size="sm">&#9998;</Button>
                 </div>
             )}
@@ -96,6 +108,22 @@ const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState
                 {children}
             </ul>)
         }
+        <Modal show={showDeleteDialog} onHide={onDialogClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Delete task</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                Do you want to delete task "{text}"?
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onDialogClose}>
+                    Cancel
+                </Button>
+                <Button variant="primary" onClick={deleteTask}>
+                    Yes, delete it
+                </Button>
+            </Modal.Footer>
+        </Modal>
     </>);
 };
 

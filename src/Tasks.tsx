@@ -38,6 +38,9 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
             case ServerAction.CREATE:
                 URI = `http://localhost:8081/api/item/create`;
                 break;
+            case ServerAction.DELETE:
+                URI = `http://localhost:8081/api/item/delete`;
+                break;
             default:
                 return;
         }
