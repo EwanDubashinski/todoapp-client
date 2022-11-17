@@ -4,5 +4,9 @@ enum ServerAction {
    UPDATE,
    CREATE,
    DELETE,
+   UP,
+   DOWN,
+   RIGHT,
+   LEFT
 }
 export default ServerAction;

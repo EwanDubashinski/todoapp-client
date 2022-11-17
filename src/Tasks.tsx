@@ -6,6 +6,7 @@ import ServerAction  from './ServerAction'
 import Task from './Task';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import { Toast } from 'react-bootstrap';
 
 type TasksProps = {
     acitiveProject: number,
@@ -41,6 +42,18 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
             case ServerAction.DELETE:
                 URI = `http://localhost:8081/api/item/delete`;
                 break;
+            case ServerAction.UP:
+                URI = `http://localhost:8081/api/item/up`;
+                break;
+            case ServerAction.DOWN:
+                URI = `http://localhost:8081/api/item/down`;
+                break;
+            case ServerAction.RIGHT:
+                URI = `http://localhost:8081/api/item/right`;
+                break;
+            case ServerAction.LEFT:
+                URI = `http://localhost:8081/api/item/left`;
+                break;
             default:
                 return;
         }
@@ -55,6 +68,7 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
             checked: 0,
             date_added: new Date().toISOString(),
             id: 0,
+            childOrder: tasks.length
         };
         setFormState({formMode: FormMode.CREATE, activeId: newTask.id});
         setTasks([...tasks, newTask]);
@@ -70,6 +84,7 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
             {tasks
                 .filter(task => _.isUndefined(task.parentId) &&
                                 _.isUndefined(task.dateCompleted))
+                .sort((a, b) => (a.childOrder ?? 0) - (b.childOrder ?? 0))
                 .map(task => (
                     <Task
                         key={_.uniqueId()}

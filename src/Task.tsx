@@ -35,7 +35,7 @@ const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState
 
     const isDone = !_.isUndefined(dateCompleted); // TODO: maybe change
 
-    const className = classNames("col-10", {'task-done': isDone});
+    const className = classNames("col-6", {'task-done': isDone});
 
     const onCheck: ChangeEventHandler = () => {
         const action: ServerAction = isDone ? ServerAction.UNDONE : ServerAction.DONE;
@@ -63,8 +63,25 @@ const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState
         setFormState({formMode: FormMode.READ, activeId: -1});
     };
     const onDialogClose = () => setShowDeleteDialog(false);
+    const onUpClick = async () => {
+        await updateTask(data, ServerAction.UP);
+        // refreshTasks();
+    };
+    const onDownClick = async () => {
+        await updateTask(data, ServerAction.DOWN);
+        // refreshTasks();
+    };
+    const onLeftClick = async () => {
+        await updateTask(data, ServerAction.LEFT);
+        // refreshTasks();
+    };
+    const onRightClick = async () => {
+        await updateTask(data, ServerAction.RIGHT);
+        // refreshTasks();
+    };
     const children = tasks
         .filter(task => task.parentId === id)
+        .sort((a, b) => (a.childOrder ?? 0) - (b.childOrder ?? 0))
         .map(task => (
             <Task
                 key={_.uniqueId()}
@@ -77,10 +94,11 @@ const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState
                 refreshTasks={refreshTasks}
             />
         ));
+    const taskClass = classNames("row", {"highlight": showControls});
     let element;
     if (showInput) {
         element =
-            <li className='row'>
+            <li className='row highlight'>
                 <Form.Group className="col-10">
                     {/* <Form.Label>Email address</Form.Label> */}
                     <Form.Control type="text" value={text} placeholder="What do you want to do?" onChange={(e) => setText(e.target.value)} />
@@ -91,10 +109,14 @@ const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState
                 </div>
             </li>
     } else {
-        element = <li onMouseEnter={() => setShowControls(!isDone)} onMouseLeave={() => setShowControls(false)} className="row">
+        element = <li onMouseEnter={() => setShowControls(!isDone)} onMouseLeave={() => setShowControls(false)} className={taskClass}>
             <Form.Check className={className} defaultChecked={isDone} type="checkbox" label={text} onChange={onCheck} />
             {showControls && formState.formMode === FormMode.READ && (
-                <div className='col-2'>
+                <div className='col-6'>
+                    <Button variant="outline-primary" onClick={onUpClick} size="sm">&#11014;</Button>
+                    <Button variant="outline-primary" onClick={onDownClick} size="sm">&#11015;</Button>
+                    <Button variant="outline-primary" onClick={onLeftClick} size="sm">&#9664;</Button>
+                    <Button variant="outline-primary" onClick={onRightClick} size="sm">&#9654;</Button>
                     <Button variant="outline-primary" onClick={onDeleteClick} size="sm">&#128465;</Button>
                     <Button variant="outline-primary" onClick={onEditClick} size="sm">&#9998;</Button>
                 </div>

@@ -37,7 +37,7 @@ export type TaskData = {
     added_by_uid?: number | null;
     assigned_by_uid?: number | null;
     checked: number;
-    child_order?: number;
+    childOrder?: number;
     collapsed?: number;
     content: string;
     date_added: string;
