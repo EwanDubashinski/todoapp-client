@@ -20,9 +20,9 @@ const Projects = ({ setActiveProject, acitiveProject }: ProjectsProps) => {
                 .then(() => setActiveProject(localStorage.getItem("acitiveProject")));
     }, []);
 
-    return (<div className='projects col-3'>
+    return (<aside className='projects'>
                 <h2>Projects</h2>
-                <Accordion alwaysOpen flush>
+                {/* <Accordion alwaysOpen flush> */}
                     {projects
                         .filter(prj => _.isUndefined(prj.parent))
                         .map(prj => (
@@ -34,8 +34,8 @@ const Projects = ({ setActiveProject, acitiveProject }: ProjectsProps) => {
                                 setActiveProject={setActiveProject}
                             />
                     ))}
-                </Accordion>
-            </div>)
+                {/* </Accordion> */}
+            </aside>)
     };
 
 // const el = <Card title="Welcome!" paragraph="To this example" />

@@ -78,9 +78,9 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
     }, [acitiveProject]);
     // console.log("render!")
     return (
-    <div className='tasks col'>
+    <div className='tasks'>
         <h2>Tasks</h2>
-        <ul>
+        <ul className="overflow-auto vh-100">
             {tasks
                 .filter(task => _.isUndefined(task.parentId) &&
                                 _.isUndefined(task.dateCompleted))
@@ -98,30 +98,27 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
                     />
                 ))}
             {formState.formMode === FormMode.READ && (
-                <li>
-                    <Button variant="outline-primary" onClick={onNewClick} size="sm">&#43;</Button>
+                <li className="row">
+                    <Button className="col-1" variant="primary" onClick={onNewClick} size="sm">&#43;</Button>
+                    Add task
                 </li>
             )}
-
-        </ul>
-        <h2>Completed tasks</h2>
-        <ul>
-        {tasks
-                .filter(task => !_.isUndefined(task.dateCompleted) &&
-                _.isUndefined(task.parentId))
-                .map(task => (
-                    // task.content
-                    <Task
-                        key={_.uniqueId()}
-                        data={task}
-                        tasks={tasks}
-                        acitiveProject={acitiveProject}
-                        updateTask={updateTask}
-                        formState={formState}
-                        setFormState={setFormState}
-                        refreshTasks={refreshTasks}
-                    />
-                ))}
+            {tasks
+                    .filter(task => !_.isUndefined(task.dateCompleted) &&
+                    _.isUndefined(task.parentId))
+                    .map(task => (
+                        // task.content
+                        <Task
+                            key={_.uniqueId()}
+                            data={task}
+                            tasks={tasks}
+                            acitiveProject={acitiveProject}
+                            updateTask={updateTask}
+                            formState={formState}
+                            setFormState={setFormState}
+                            refreshTasks={refreshTasks}
+                        />
+                    ))}
         </ul>
     </div>)
 };
