@@ -67,3 +67,28 @@ export type Due = {
     string: string;
     timezone?: null;
 }
+
+export type UserData = {
+    authorities?: (AuthoritiesEntity)[] | null;
+    details: Details;
+    authenticated: boolean;
+    principal: Principal;
+    credentials?: null;
+    name: string;
+}
+export interface AuthoritiesEntity {
+    authority: string;
+}
+export interface Details {
+    remoteAddress: string;
+    sessionId?: null;
+}
+export interface Principal {
+    password?: null;
+    username: string;
+    authorities?: (AuthoritiesEntity)[] | null;
+    accountNonExpired: boolean;
+    accountNonLocked: boolean;
+    credentialsNonExpired: boolean;
+    enabled: boolean;
+}

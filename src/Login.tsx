@@ -5,21 +5,29 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
    const [email, setEmail] = useState("");
    const [pwd, setPwd] = useState("");
+   const navigate = useNavigate();
+
 
    const submit = (event: React.MouseEvent<HTMLElement>) => {
       event.preventDefault();
-      axios.get("/user", {
+      axios.get("/api/user", {
          auth: {
             username: email,
             password: pwd
          }
       })
-      .then(() => alert("success!"))
-      .catch(res => alert(res.message));
+      .then(() => {
+         alert("success!");
+         navigate("/");
+      })
+      .catch(res => {
+         alert(res.message);
+      });
    };
    // Buffer.from('your string here').toString('base64')
    return (<>

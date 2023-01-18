@@ -11,11 +11,14 @@ import {
     createBrowserRouter,
     redirect,
     RouterProvider,
+    useLoaderData,
 } from "react-router-dom";
 
 // import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import axios from 'axios';
+import axios, { Axios, AxiosResponse } from 'axios';
+import { UserData } from './types';
+import { Nav } from 'react-bootstrap';
 
 const App = () => {
     const [acitiveProject, setActiveProjectInState] = useState(-1);
@@ -24,14 +27,20 @@ const App = () => {
         localStorage.setItem("acitiveProject", active.toString());
     };
 
-    useEffect(() => {
-
-    }, []);
+    const userData: UserData = (useLoaderData() as AxiosResponse).data;
     return (<>
         <Navbar bg="light">
             <Container>
                 <Navbar.Brand href="#">✔ Todoapp</Navbar.Brand>
             </Container>
+            <Nav>
+                <Nav.Item>
+                    {userData.principal.username}
+                </Nav.Item>
+                <Nav.Link href="/logout">
+                    Logout
+                </Nav.Link>
+            </Nav>
         </Navbar>
         <Row>
             <Col sm={12} md={3}>
@@ -50,8 +59,7 @@ const router = createBrowserRouter([
         element: <App />,
         loader: async () => {
             try {
-                await axios.get("/user");
-                return null;
+                return await axios.get("/api/user");
             } catch (error) {
                 // console.log(error.response.data.error)
                 return redirect("/login");
@@ -61,6 +69,21 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login />,
+        loader: async () => {
+            try {
+                await axios.get("/api/user");
+                return redirect("/");
+            } catch (error) {
+                return null;
+            }
+        },
+    },
+    {
+        path: "/logout",
+        loader: async () => {
+            await axios.post("/api/logout");
+            return redirect("/login");
+        },
     },
 ]);
 
