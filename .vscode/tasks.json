@@ -15,7 +15,11 @@
 			"script": "webpack",
 			"problemMatcher": [],
 			"label": "npm: webpack",
-			"detail": "webpack"
+			"detail": "webpack",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		},
 		{
 			"type": "shell",

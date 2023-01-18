@@ -11,18 +11,32 @@
             text-decoration: underline;
             font-weight: bold;
         }
-        .tasks, .projects {
+        /* .tasks, .projects {
             float: left;
+        } */
+
+        /* .accordion-button:after { /* Change default accordeon style
+            order: -1; /*swap order
+            margin-left: 0;
+            margin-right:0.5em; /* just extra space between text and icon
+        } */
+
+        .task-done label {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .highlight {
+            background-color: lightblue;
         }
     </style>
-<script defer src="index.bundle.js"></script></head>
+<script defer src="/index.bundle.js"></script></head>
 
 <body>
     <noscript>
         You need to enable JavaScript to run this app.
     </noscript>
-    <div id="app">
-        <!-- This div is where our app will run -->
+    <div id="app" class="min-vh-100">
     </div>
 </body>
 

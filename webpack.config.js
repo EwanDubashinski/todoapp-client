@@ -6,6 +6,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, "build"),
         filename: "index.bundle.js",
+        publicPath: '/'
         // devtoolModuleFilenameTemplate: '[absolute-resource-path]'
     },
     mode: process.env.NODE_ENV || "development",
@@ -18,7 +19,8 @@ module.exports = {
         },
         headers: {
             'Access-Control-Allow-Origin': '*'
-        }
+        },
+        historyApiFallback: true,
     },
     module: {
         rules: [
