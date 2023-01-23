@@ -9,21 +9,20 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
    const [email, setEmail] = useState("");
+   const [name, setName] = useState("");
    const [pwd, setPwd] = useState("");
+   const [pwd2, setPwd2] = useState("");
    const navigate = useNavigate();
 
 
    const submit = (event: React.MouseEvent<HTMLElement>) => {
       event.preventDefault();
-      axios.get("/api/user", {
-         auth: {
-            username: email,
-            password: pwd
-         }
+      axios.post("/api/user/registration", {
+         email, pwd, pwd2
       })
       .then(() => {
-         alert("success!");
-         navigate("/");
+         alert("Please activate your email");
+         navigate("/login");
       })
       .catch(res => {
          alert(res.message);
@@ -34,24 +33,32 @@ const Login = () => {
       <Container className="d-flex align-items-center justify-content-center min-vh-100">
          <Row>
             <Form>
-               <Form.Group className="mb-3" controlId="formBasicEmail">
+               <Form.Group className="mb-3" controlId="formEmail">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
                   <Form.Text className="text-muted">
                      We'll never share your email with anyone else.
                   </Form.Text>
                </Form.Group>
-               <Form.Group className="mb-3" controlId="formBasicPassword">
+               <Form.Group className="mb-3" controlId="formName">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control type="text" placeholder="Enter your name" onChange={(e) => setName(e.target.value)} />
+                  <Form.Text className="text-muted">
+                     Display name
+                  </Form.Text>
+               </Form.Group>
+               <Form.Group className="mb-3" controlId="formPassword">
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" placeholder="Password" onChange={(e) => setPwd(e.target.value)} />
+               </Form.Group>
+               <Form.Group className="mb-3" controlId="formPasswordRepeat">
+                  <Form.Label>Password repeat</Form.Label>
+                  <Form.Control type="password" placeholder="Password repeat" onChange={(e) => setPwd2(e.target.value)} />
                </Form.Group>
                <Button variant="primary" type="submit" onClick={submit}>
                   Submit
                </Button>
             </Form>
-         </Row>
-         <Row>
-            <Button variant="outline" onClick={() => navigate("/registration")}>Register</Button>
          </Row>
       </Container>
    </>);

@@ -19,6 +19,7 @@ import { createRoot } from 'react-dom/client';
 import axios, { Axios, AxiosResponse } from 'axios';
 import { UserData } from './types';
 import { Nav } from 'react-bootstrap';
+import Registration from './Registration';
 
 const App = () => {
     const [acitiveProject, setActiveProjectInState] = useState(-1);
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
             await axios.post("/api/logout");
             return redirect("/login");
         },
+    },
+    {
+        path: "/registration",
+        element: <Registration />
     },
 ]);
 
