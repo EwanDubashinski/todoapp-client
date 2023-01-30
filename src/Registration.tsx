@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Registration = () => {
    const [email, setEmail] = useState("");
    const [name, setName] = useState("");
    const [pwd, setPwd] = useState("");
@@ -17,9 +17,13 @@ const Login = () => {
 
    const submit = (event: React.MouseEvent<HTMLElement>) => {
       event.preventDefault();
-      axios.post("/api/user/registration", {
-         email, pwd, pwd2
-      })
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("name", name);
+      formData.append("password", pwd);
+      formData.append("matchingPassword", pwd2);
+
+      axios.post("/api/user/registration", formData)
       .then(() => {
          alert("Please activate your email");
          navigate("/login");
@@ -63,4 +67,4 @@ const Login = () => {
       </Container>
    </>);
 }
-export default Login;
+export default Registration;

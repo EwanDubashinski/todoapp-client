@@ -20,6 +20,7 @@ import axios, { Axios, AxiosResponse } from 'axios';
 import { UserData } from './types';
 import { Nav } from 'react-bootstrap';
 import Registration from './Registration';
+import Activation from './Activation';
 
 const App = () => {
     const [acitiveProject, setActiveProjectInState] = useState(-1);
@@ -89,6 +90,14 @@ const router = createBrowserRouter([
     {
         path: "/registration",
         element: <Registration />
+    },
+    {
+        path: "/activation/:code",
+        loader: async ({ params }) => {
+            const code = params.code;
+            return axios.get("/api/user/activate/" + code);
+        },
+        element: <Activation />
     },
 ]);
 

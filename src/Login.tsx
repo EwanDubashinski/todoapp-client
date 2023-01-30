@@ -51,7 +51,7 @@ const Login = () => {
             </Form>
          </Row>
          <Row>
-            <Button variant="outline" onClick={() => navigate("/registration")}>Register</Button>
+            <Button onClick={() => navigate("/registration")}>Register</Button>
          </Row>
       </Container>
    </>);
