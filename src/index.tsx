@@ -16,17 +16,38 @@ import {
 
 // import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import axios, { Axios, AxiosResponse } from 'axios';
-import { UserData } from './types';
+import axios, { Axios, AxiosError, AxiosResponse } from 'axios';
+import { ProjectData, UserData } from './types';
 import { Nav } from 'react-bootstrap';
 import Registration from './Registration';
 import Activation from './Activation';
+import { initial } from 'lodash';
 
 const App = () => {
-    const [acitiveProject, setActiveProjectInState] = useState(-1);
-    const setActiveProject = (active: number) => {
+    const [projects, setProjects] = useState(new Array<ProjectData>);
+
+    const refreshProjects = async () => {
+        const res: ProjectData[] = await (await axios.get('http://localhost:8081/api/projects')).data;
+        const activeProjectId = localStorage.getItem("acitiveProject")
+        if (acitiveProject == null && activeProjectId != null) {
+            if (activeProjectId != null) {
+                const active = res.find(project => project.id == Number(activeProjectId));
+                if (active) {
+                    setActiveProject(active);
+                }
+            }
+        }
+        setProjects(res);
+    };
+
+    useEffect(() => {
+        refreshProjects();
+    }, []);
+
+    const [acitiveProject, setActiveProjectInState] = useState<ProjectData | null>(null);
+    const setActiveProject = (active: ProjectData) => {
         setActiveProjectInState(active);
-        localStorage.setItem("acitiveProject", active.toString());
+        localStorage.setItem("acitiveProject", active.id.toString());
     };
 
     const userData: UserData = (useLoaderData() as AxiosResponse).data;
@@ -46,7 +67,7 @@ const App = () => {
         </Navbar>
         <Row>
             <Col sm={12} md={3}>
-                <Projects acitiveProject={acitiveProject} setActiveProject={setActiveProject} />
+                <Projects projects={projects} refreshProjects={refreshProjects} acitiveProject={acitiveProject} setActiveProject={setActiveProject} />
             </Col>
             <Col>
                 <Tasks acitiveProject={acitiveProject} />
@@ -95,7 +116,13 @@ const router = createBrowserRouter([
         path: "/activation/:code",
         loader: async ({ params }) => {
             const code = params.code;
-            return axios.get("/api/user/activate/" + code);
+            let data;
+            try {
+                data = await axios.get("/api/user/activate/" + code);
+            } catch (error) {
+                data = (error as AxiosError).response;
+            }
+            return data;
         },
         element: <Activation />
     },

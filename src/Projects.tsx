@@ -4,27 +4,56 @@ import { ProjectData } from './types'
 import _ from 'lodash';
 import axios from 'axios';
 import { Accordion } from 'react-bootstrap';
+import ServerAction from './ServerAction';
 
 type ProjectsProps = {
-    // projects: Array<ProjectData>,
+    projects: Array<ProjectData>,
+    refreshProjects: Function,
     setActiveProject: Function,
-    acitiveProject: number | null,
+    acitiveProject: ProjectData | null,
 };
 
-const Projects = ({ setActiveProject, acitiveProject }: ProjectsProps) => {
-    const [projects, setProjects] = useState(new Array<ProjectData>);
+const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject }: ProjectsProps) => {
+    const updateProject = async (project: ProjectData, action: ServerAction) => {
+        let URI: string;
+        switch (action) {
+            case ServerAction.SET_COLLAPSED:
+                URI = `http://localhost:8081/api/project/collapsed`;
+                break;
+            case ServerAction.UPDATE:
+                URI = `http://localhost:8081/api/project/update`;
+                break;
+            case ServerAction.CREATE:
+                URI = `http://localhost:8081/api/project/create`;
+                break;
+            case ServerAction.DELETE:
+                URI = `http://localhost:8081/api/project/delete`;
+                break;
+            case ServerAction.UP:
+                URI = `http://localhost:8081/api/project/up`;
+                break;
+            case ServerAction.DOWN:
+                URI = `http://localhost:8081/api/project/down`;
+                break;
+            case ServerAction.RIGHT:
+                URI = `http://localhost:8081/api/project/right`;
+                break;
+            case ServerAction.LEFT:
+                URI = `http://localhost:8081/api/project/left`;
+                break;
+            default:
+                return;
+        }
 
-    useEffect(() => {
-        axios.get('http://localhost:8081/api/projects')
-                .then(res => setProjects(res.data))
-                .then(() => setActiveProject(localStorage.getItem("acitiveProject")));
-    }, []);
+        await axios.post(URI, project);
+        refreshProjects();
+    }
 
     return (<aside className='projects'>
                 <h2>Projects</h2>
                 {/* <Accordion alwaysOpen flush> */}
                     {projects
-                        .filter(prj => _.isUndefined(prj.parent))
+                        .filter(prj => _.isUndefined(prj.parentId))
                         .map(prj => (
                             <Project
                                 key={_.uniqueId()}
@@ -32,6 +61,7 @@ const Projects = ({ setActiveProject, acitiveProject }: ProjectsProps) => {
                                 projects={projects}
                                 acitiveProject={acitiveProject}
                                 setActiveProject={setActiveProject}
+                                updateProject={updateProject}
                             />
                     ))}
                 {/* </Accordion> */}

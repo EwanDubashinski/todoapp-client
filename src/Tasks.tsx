@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'; // we need this to make JSX compile
 import _ from 'lodash';
-import { TaskData } from './types'
+import { ProjectData, TaskData } from './types'
 import FormMode  from './FormMode'
 import ServerAction  from './ServerAction'
 import Task from './Task';
@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import { Toast } from 'react-bootstrap';
 
 type TasksProps = {
-    acitiveProject: number,
+    acitiveProject: ProjectData | null,
     // tasks: Array<TaskData>,
 };
 
@@ -19,8 +19,9 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
     const [tasks, setTasks] = useState(new Array<TaskData>);
     const [formState, setFormState] = useState({formMode: FormMode.READ, activeId: -1});
     const refreshTasks = () => {
+        if (!acitiveProject) return;
         axios
-            .get('http://localhost:8081/api/items/' + acitiveProject)
+            .get('http://localhost:8081/api/items/' + acitiveProject.id)
             .then(res => setTasks(res.data));
     };
 
@@ -62,9 +63,10 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
         refreshTasks();
     }
     const onNewClick = () => {
+        if (!acitiveProject) return;
         const newTask: TaskData = {
             content: "",
-            projectId: acitiveProject,
+            projectId: acitiveProject.id,
             checked: 0,
             date_added: new Date().toISOString(),
             id: 0,
@@ -77,9 +79,9 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
         if (acitiveProject !== null) refreshTasks();
     }, [acitiveProject]);
     // console.log("render!")
-    return (
+    return (acitiveProject &&
     <div className='tasks'>
-        <h2>Tasks</h2>
+        <h2>{acitiveProject?.name}</h2>
         <ul className="overflow-auto vh-100">
             {tasks
                 .filter(task => _.isUndefined(task.parentId) &&

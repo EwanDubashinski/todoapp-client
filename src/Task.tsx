@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, useState, useEffect, useContext } from 'react'; // we need this to make JSX compile
-import { TaskData } from './types'
+import { ProjectData, TaskData } from './types'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import _ from 'lodash';
@@ -15,7 +15,7 @@ type FormState = {
 }
 type TaskProps = {
     data: TaskData,
-    acitiveProject: number | null,
+    acitiveProject: ProjectData | null,
     tasks: Array<TaskData>,
     updateTask: Function,
     formState: FormState,

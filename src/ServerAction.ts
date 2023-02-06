@@ -7,6 +7,7 @@ enum ServerAction {
    UP,
    DOWN,
    RIGHT,
-   LEFT
+   LEFT,
+   SET_COLLAPSED
 }
 export default ServerAction;

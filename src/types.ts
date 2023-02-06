@@ -16,19 +16,19 @@
 // };
 
 export type ProjectData = {
-    child_order: number,
-    collapsed: number,
-    color: number,
-    has_more_notes: boolean,
+    child_order?: number,
+    collapsed?: number,
+    color?: number,
+    has_more_notes?: boolean,
     id: number,
     inbox_project?: boolean | null,
-    is_archived: number,
-    is_deleted: number,
-    is_favorite: number,
+    is_archived?: number,
+    is_deleted?: number,
+    is_favorite?: number,
     legacy_id?: number | null,
     name: string,
-    parent?: number | null,
-    shared: boolean,
+    parentId?: number | null,
+    shared?: boolean,
     sync_id?: number | null,
     legacy_parent_id?: number | null,
 }

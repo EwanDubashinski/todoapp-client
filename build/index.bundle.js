@@ -69581,8 +69581,13 @@ var __assign = (undefined && undefined.__assign) || function () {
 var Activation = function () {
     var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useNavigate)();
     var activationResult = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useLoaderData)();
-    alert(activationResult);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Container__WEBPACK_IMPORTED_MODULE_2__["default"], __assign({ className: "d-flex align-items-center justify-content-center min-vh-100" }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_3__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], __assign({ variant: "success" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Heading, { children: "Hey, nice to see you" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content." }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", __assign({ className: "mb-0" }, { children: "Whenever you need to, be sure to use margin utilities to keep things nice and tidy." }))] })) }) })) }));
+    var activated = activationResult.status === 200;
+    var variant = activated ? "success" : "danger";
+    var text = activated ?
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: ["Activation succeffsul. Now you can log in with your email and password ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", __assign({ href: "/login" }, { children: "here" }))] }) :
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: activationResult.data.message });
+    // error : data.message
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Container__WEBPACK_IMPORTED_MODULE_2__["default"], __assign({ className: "d-flex align-items-center justify-content-center min-vh-100" }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_3__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], __assign({ variant: variant }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Heading, { children: "Activation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: text })] })) }) })) }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Activation);
 
@@ -69697,10 +69702,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Nav.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Collapse.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Nav.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Collapse.js");
+/* harmony import */ var _ServerAction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ServerAction */ "./src/ServerAction.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -69717,27 +69723,33 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
+
 var Project = function (_a) {
-    var _b = _a.data, name = _b.name, id = _b.id, projects = _a.projects, setActiveProject = _a.setActiveProject, acitiveProject = _a.acitiveProject;
-    var _c = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false), open = _c[0], setOpen = _c[1];
+    var data = _a.data, projects = _a.projects, setActiveProject = _a.setActiveProject, acitiveProject = _a.acitiveProject, updateProject = _a.updateProject;
+    var _b = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(data.collapsed), collapsed = _b[0], setCollapsed = _b[1];
     var children = projects
-        .filter(function (prj) { return prj.parent === id; })
-        .map(function (prj) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Project, { data: prj, projects: projects, acitiveProject: acitiveProject, setActiveProject: setActiveProject }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); });
+        .filter(function (prj) { return prj.parentId === data.id; })
+        .map(function (prj) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Project, { data: prj, projects: projects, acitiveProject: acitiveProject, setActiveProject: setActiveProject, updateProject: updateProject }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); });
+    var collapse = function () {
+        var newCollapsedState = collapsed == 1 ? 0 : 1;
+        setCollapsed(newCollapsedState);
+        updateProject(__assign(__assign({}, data), { collapsed: newCollapsedState }), _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].SET_COLLAPSED);
+    };
     var hasChildren = children.length > 0;
-    var className = classnames__WEBPACK_IMPORTED_MODULE_3___default()({ active: id === acitiveProject });
     var onClick = function (e) {
         e.stopPropagation();
-        setActiveProject(id);
+        setActiveProject(data);
     };
     var arrowRight = "\u2B9E";
     var arrowDown = "\u2B9F";
-    var active = id === acitiveProject;
-    var projectItem = (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Link, __assign({ className: 'col', active: active, onClick: onClick }, { children: name }));
+    var active = data.id === (acitiveProject === null || acitiveProject === void 0 ? void 0 : acitiveProject.id);
+    var className = classnames__WEBPACK_IMPORTED_MODULE_3___default()("col", { active: active });
+    var projectItem = (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Link, __assign({ className: className, active: active, onClick: onClick }, { children: data.name }));
     var padding = { paddingLeft: "20px" };
     return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: hasChildren ?
-            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], __assign({ variant: "link", size: "sm", onClick: function () { return setOpen(!open); }, className: 'col-1' }, { children: open ? arrowDown : arrowRight })), projectItem] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ in: open }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", __assign({ style: padding }, { children: children })) }))] })
+            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "link", size: "sm", onClick: collapse, className: 'col-1' }, { children: collapsed == 0 ? arrowDown : arrowRight })), projectItem] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], __assign({ in: collapsed == 0 }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", __assign({ style: padding }, { children: children })) }))] })
             :
-                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-1' }), projectItem] }) }));
+                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-1' }), projectItem] }) }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Project);
 
@@ -69756,13 +69768,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Project__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Project */ "./src/Project.tsx");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Project */ "./src/Project.tsx");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ServerAction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ServerAction */ "./src/ServerAction.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -69774,22 +69785,93 @@ var __assign = (undefined && undefined.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
- // we need this to make JSX compile
+
 
 
 
 var Projects = function (_a) {
-    var setActiveProject = _a.setActiveProject, acitiveProject = _a.acitiveProject;
-    var _b = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(new Array), projects = _b[0], setProjects = _b[1];
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-        axios__WEBPACK_IMPORTED_MODULE_4___default().get('http://localhost:8081/api/projects')
-            .then(function (res) { return setProjects(res.data); })
-            .then(function () { return setActiveProject(localStorage.getItem("acitiveProject")); });
-    }, []);
+    var projects = _a.projects, refreshProjects = _a.refreshProjects, setActiveProject = _a.setActiveProject, acitiveProject = _a.acitiveProject;
+    var updateProject = function (project, action) { return __awaiter(void 0, void 0, void 0, function () {
+        var URI;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    switch (action) {
+                        case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].SET_COLLAPSED:
+                            URI = "http://localhost:8081/api/project/collapsed";
+                            break;
+                        case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].UPDATE:
+                            URI = "http://localhost:8081/api/project/update";
+                            break;
+                        case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].CREATE:
+                            URI = "http://localhost:8081/api/project/create";
+                            break;
+                        case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].DELETE:
+                            URI = "http://localhost:8081/api/project/delete";
+                            break;
+                        case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].UP:
+                            URI = "http://localhost:8081/api/project/up";
+                            break;
+                        case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].DOWN:
+                            URI = "http://localhost:8081/api/project/down";
+                            break;
+                        case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].RIGHT:
+                            URI = "http://localhost:8081/api/project/right";
+                            break;
+                        case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].LEFT:
+                            URI = "http://localhost:8081/api/project/left";
+                            break;
+                        default:
+                            return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_3___default().post(URI, project)];
+                case 1:
+                    _a.sent();
+                    refreshProjects();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("aside", __assign({ className: 'projects' }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: "Projects" }), projects
-                .filter(function (prj) { return lodash__WEBPACK_IMPORTED_MODULE_3___default().isUndefined(prj.parent); })
-                .map(function (prj) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Project__WEBPACK_IMPORTED_MODULE_2__["default"], { data: prj, projects: projects, acitiveProject: acitiveProject, setActiveProject: setActiveProject }, lodash__WEBPACK_IMPORTED_MODULE_3___default().uniqueId())); })] })));
+                .filter(function (prj) { return lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(prj.parentId); })
+                .map(function (prj) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Project__WEBPACK_IMPORTED_MODULE_1__["default"], { data: prj, projects: projects, acitiveProject: acitiveProject, setActiveProject: setActiveProject, updateProject: updateProject }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); })] })));
 };
 // const el = <Card title="Welcome!" paragraph="To this example" />
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Projects);
@@ -69889,6 +69971,7 @@ var ServerAction;
     ServerAction[ServerAction["DOWN"] = 6] = "DOWN";
     ServerAction[ServerAction["RIGHT"] = 7] = "RIGHT";
     ServerAction[ServerAction["LEFT"] = 8] = "LEFT";
+    ServerAction[ServerAction["SET_COLLAPSED"] = 9] = "SET_COLLAPSED";
 })(ServerAction || (ServerAction = {}));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ServerAction);
 
@@ -70181,7 +70264,9 @@ var Tasks = function (_a) {
     var _b = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(new Array), tasks = _b[0], setTasks = _b[1];
     var _c = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({ formMode: _FormMode__WEBPACK_IMPORTED_MODULE_3__["default"].READ, activeId: -1 }), formState = _c[0], setFormState = _c[1];
     var refreshTasks = function () {
-        axios__WEBPACK_IMPORTED_MODULE_6___default().get('http://localhost:8081/api/items/' + acitiveProject)
+        if (!acitiveProject)
+            return;
+        axios__WEBPACK_IMPORTED_MODULE_6___default().get('http://localhost:8081/api/items/' + acitiveProject.id)
             .then(function (res) { return setTasks(res.data); });
     };
     var updateTask = function (task, action) { return __awaiter(void 0, void 0, void 0, function () {
@@ -70229,9 +70314,11 @@ var Tasks = function (_a) {
         });
     }); };
     var onNewClick = function () {
+        if (!acitiveProject)
+            return;
         var newTask = {
             content: "",
-            projectId: acitiveProject,
+            projectId: acitiveProject.id,
             checked: 0,
             date_added: new Date().toISOString(),
             id: 0,
@@ -70245,16 +70332,17 @@ var Tasks = function (_a) {
             refreshTasks();
     }, [acitiveProject]);
     // console.log("render!")
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", __assign({ className: 'tasks' }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: "Tasks" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", __assign({ className: "overflow-auto vh-100" }, { children: [tasks
-                        .filter(function (task) { return lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(task.parentId) &&
-                        lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(task.dateCompleted); })
-                        .sort(function (a, b) { var _a, _b; return ((_a = a.childOrder) !== null && _a !== void 0 ? _a : 0) - ((_b = b.childOrder) !== null && _b !== void 0 ? _b : 0); })
-                        .map(function (task) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Task__WEBPACK_IMPORTED_MODULE_5__["default"], { data: task, tasks: tasks, acitiveProject: acitiveProject, updateTask: updateTask, formState: formState, setFormState: setFormState, refreshTasks: refreshTasks }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); }), formState.formMode === _FormMode__WEBPACK_IMPORTED_MODULE_3__["default"].READ && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", __assign({ className: "row" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ className: "col-1", variant: "primary", onClick: onNewClick, size: "sm" }, { children: "+" })), "Add task"] }))), tasks
-                        .filter(function (task) { return !lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(task.dateCompleted) &&
-                        lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(task.parentId); })
-                        .map(function (task) { return (
-                    // task.content
-                    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Task__WEBPACK_IMPORTED_MODULE_5__["default"], { data: task, tasks: tasks, acitiveProject: acitiveProject, updateTask: updateTask, formState: formState, setFormState: setFormState, refreshTasks: refreshTasks }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); })] }))] })));
+    return (acitiveProject &&
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", __assign({ className: 'tasks' }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: acitiveProject === null || acitiveProject === void 0 ? void 0 : acitiveProject.name }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", __assign({ className: "overflow-auto vh-100" }, { children: [tasks
+                            .filter(function (task) { return lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(task.parentId) &&
+                            lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(task.dateCompleted); })
+                            .sort(function (a, b) { var _a, _b; return ((_a = a.childOrder) !== null && _a !== void 0 ? _a : 0) - ((_b = b.childOrder) !== null && _b !== void 0 ? _b : 0); })
+                            .map(function (task) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Task__WEBPACK_IMPORTED_MODULE_5__["default"], { data: task, tasks: tasks, acitiveProject: acitiveProject, updateTask: updateTask, formState: formState, setFormState: setFormState, refreshTasks: refreshTasks }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); }), formState.formMode === _FormMode__WEBPACK_IMPORTED_MODULE_3__["default"].READ && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", __assign({ className: "row" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ className: "col-1", variant: "primary", onClick: onNewClick, size: "sm" }, { children: "+" })), "Add task"] }))), tasks
+                            .filter(function (task) { return !lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(task.dateCompleted) &&
+                            lodash__WEBPACK_IMPORTED_MODULE_2___default().isUndefined(task.parentId); })
+                            .map(function (task) { return (
+                        // task.content
+                        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Task__WEBPACK_IMPORTED_MODULE_5__["default"], { data: task, tasks: tasks, acitiveProject: acitiveProject, updateTask: updateTask, formState: formState, setFormState: setFormState, refreshTasks: refreshTasks }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); })] }))] })));
 };
 // const el = <Card title="Welcome!" paragraph="To this example" />
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tasks);
@@ -71192,13 +71280,39 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 var App = function () {
-    var _a = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(-1), acitiveProject = _a[0], setActiveProjectInState = _a[1];
+    var _a = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(new Array), projects = _a[0], setProjects = _a[1];
+    var refreshProjects = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res, activeProjectId, active;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_7___default().get('http://localhost:8081/api/projects')];
+                case 1: return [4 /*yield*/, (_a.sent()).data];
+                case 2:
+                    res = _a.sent();
+                    activeProjectId = localStorage.getItem("acitiveProject");
+                    if (acitiveProject == null && activeProjectId != null) {
+                        if (activeProjectId != null) {
+                            active = res.find(function (project) { return project.id == Number(activeProjectId); });
+                            if (active) {
+                                setActiveProject(active);
+                            }
+                        }
+                    }
+                    setProjects(res);
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+        refreshProjects();
+    }, []);
+    var _b = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null), acitiveProject = _b[0], setActiveProjectInState = _b[1];
     var setActiveProject = function (active) {
         setActiveProjectInState(active);
-        localStorage.setItem("acitiveProject", active.toString());
+        localStorage.setItem("acitiveProject", active.id.toString());
     };
     var userData = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useLoaderData)().data;
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_11__["default"], __assign({ bg: "light" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Container__WEBPACK_IMPORTED_MODULE_12__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_11__["default"].Brand, __assign({ href: "#" }, { children: "\u2714 Todoapp" })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"].Item, { children: userData.principal.username }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"].Link, __assign({ href: "/logout" }, { children: "Logout" }))] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_14__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_15__["default"], __assign({ sm: 12, md: 3 }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Projects__WEBPACK_IMPORTED_MODULE_2__["default"], { acitiveProject: acitiveProject, setActiveProject: setActiveProject }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_15__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Tasks__WEBPACK_IMPORTED_MODULE_3__["default"], { acitiveProject: acitiveProject }) })] })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_11__["default"], __assign({ bg: "light" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Container__WEBPACK_IMPORTED_MODULE_12__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_11__["default"].Brand, __assign({ href: "#" }, { children: "\u2714 Todoapp" })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"].Item, { children: userData.principal.username }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"].Link, __assign({ href: "/logout" }, { children: "Logout" }))] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_14__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_15__["default"], __assign({ sm: 12, md: 3 }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Projects__WEBPACK_IMPORTED_MODULE_2__["default"], { projects: projects, refreshProjects: refreshProjects, acitiveProject: acitiveProject, setActiveProject: setActiveProject }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_15__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Tasks__WEBPACK_IMPORTED_MODULE_3__["default"], { acitiveProject: acitiveProject }) })] })] }));
 };
 var router = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_16__.createBrowserRouter)([
     {
@@ -71264,10 +71378,24 @@ var router = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_16__.createBrowserRout
         loader: function (_a) {
             var params = _a.params;
             return __awaiter(void 0, void 0, void 0, function () {
-                var code;
+                var code, data, error_3;
                 return __generator(this, function (_b) {
-                    code = params.code;
-                    return [2 /*return*/, axios__WEBPACK_IMPORTED_MODULE_7___default().get("/api/user/activate/" + code)];
+                    switch (_b.label) {
+                        case 0:
+                            code = params.code;
+                            _b.label = 1;
+                        case 1:
+                            _b.trys.push([1, 3, , 4]);
+                            return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_7___default().get("/api/user/activate/" + code)];
+                        case 2:
+                            data = _b.sent();
+                            return [3 /*break*/, 4];
+                        case 3:
+                            error_3 = _b.sent();
+                            data = error_3.response;
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/, data];
+                    }
                 });
             });
         },
