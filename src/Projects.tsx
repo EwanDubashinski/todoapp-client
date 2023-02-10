@@ -3,8 +3,9 @@ import Project from './Project';
 import { ProjectData } from './types'
 import _ from 'lodash';
 import axios from 'axios';
-import { Accordion } from 'react-bootstrap';
+import { Accordion, Button } from 'react-bootstrap';
 import ServerAction from './ServerAction';
+import EditProject from './EditProject';
 
 type ProjectsProps = {
     projects: Array<ProjectData>,
@@ -14,6 +15,14 @@ type ProjectsProps = {
 };
 
 const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject }: ProjectsProps) => {
+    const [show, setShow] = useState(false);
+
+    const handleClose = (newData: ProjectData) => {
+        setShow(false);
+        updateProject(newData, ServerAction.CREATE);
+    };
+    const handleShow = () => setShow(true);
+
     const updateProject = async (project: ProjectData, action: ServerAction) => {
         let URI: string;
         switch (action) {
@@ -51,6 +60,7 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
 
     return (<aside className='projects'>
                 <h2>Projects</h2>
+                <Button variant="primary" onClick={() => setShow(true)}>Primary</Button>
                 {/* <Accordion alwaysOpen flush> */}
                     {projects
                         .filter(prj => _.isUndefined(prj.parentId))
@@ -65,6 +75,7 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
                             />
                     ))}
                 {/* </Accordion> */}
+                <EditProject show={show} handleClose={handleClose} data={null}/>
             </aside>)
     };
 
