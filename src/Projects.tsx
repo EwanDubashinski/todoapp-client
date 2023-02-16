@@ -3,7 +3,7 @@ import Project from './Project';
 import { ProjectData } from './types'
 import _ from 'lodash';
 import axios from 'axios';
-import { Accordion, Button } from 'react-bootstrap';
+import { Accordion, Button, Modal } from 'react-bootstrap';
 import ServerAction from './ServerAction';
 import EditProject from './EditProject';
 
@@ -16,13 +16,33 @@ type ProjectsProps = {
 
 const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject }: ProjectsProps) => {
     const [show, setShow] = useState(false);
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    const [editData, setEditData] = useState<ProjectData | null>(null)
 
     const handleClose = (newData: ProjectData) => {
         setShow(false);
-        updateProject(newData, ServerAction.CREATE);
+        const action = newData.id ? ServerAction.UPDATE : ServerAction.CREATE;
+        updateProject(newData, action);
     };
-    const handleShow = () => setShow(true);
-
+    const handleShow = () => {
+        setEditData(null);
+        setShow(true);
+    };
+    const editProject = (prjData: ProjectData) => {
+        setEditData(prjData);
+        setShow(true);
+    };
+    const onDelClose = () => setShowDeleteDialog(false);
+    const showDeleteProject = (prjData: ProjectData) => {
+        if (!prjData) return;
+        setEditData(prjData);
+        setShowDeleteDialog(true);
+    };
+    const deleteProject = async (data: ProjectData) => {
+        setShowDeleteDialog(false);
+        const action = ServerAction.DELETE;
+        await updateProject(data, action);
+    };
     const updateProject = async (project: ProjectData, action: ServerAction) => {
         let URI: string;
         switch (action) {
@@ -53,17 +73,20 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
             default:
                 return;
         }
-
         await axios.post(URI, project);
-        refreshProjects();
+
+        if (action !== ServerAction.SET_COLLAPSED) {
+            refreshProjects();
+        }
     }
 
     return (<aside className='projects'>
                 <h2>Projects</h2>
-                <Button variant="primary" onClick={() => setShow(true)}>Primary</Button>
+                <Button variant="primary" onClick={handleShow}>+</Button>
                 {/* <Accordion alwaysOpen flush> */}
                     {projects
                         .filter(prj => _.isUndefined(prj.parentId))
+                        .sort((a, b) => (a.childOrder ?? 0) - (b.childOrder ?? 0))
                         .map(prj => (
                             <Project
                                 key={_.uniqueId()}
@@ -72,10 +95,28 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
                                 acitiveProject={acitiveProject}
                                 setActiveProject={setActiveProject}
                                 updateProject={updateProject}
+                                editProject={editProject}
+                                deleteProject={showDeleteProject}
                             />
                     ))}
                 {/* </Accordion> */}
-                <EditProject show={show} handleClose={handleClose} data={null}/>
+                <EditProject show={show} handleClose={handleClose} data={editData}/>
+                <Modal show={showDeleteDialog} onHide={onDelClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete task</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Do you want to delete project "{editData?.name}"?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={onDelClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={() => editData && deleteProject(editData)}>
+                            Yes, delete it
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </aside>)
     };
 

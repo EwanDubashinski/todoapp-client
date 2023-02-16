@@ -69629,8 +69629,10 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 var EditProject = function (_a) {
     var show = _a.show, handleClose = _a.handleClose, data = _a.data;
-    var _b = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(data === null || data === void 0 ? void 0 : data.name), name = _b[0], setName = _b[1];
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], __assign({ show: show, onHide: function () { return handleClose(); } }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Header, __assign({ closeButton: true }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Title, { children: "Modal heading" }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Group, __assign({ className: "mb-3" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, { children: "Project name" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, { type: "text", autoFocus: true, onChange: function (e) { return setName(e.target.value); } })] })) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Footer, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__["default"], __assign({ variant: "secondary", onClick: function () { return handleClose(); } }, { children: "Cancel" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__["default"], __assign({ variant: "primary", onClick: function () { return handleClose({ name: name }); } }, { children: "Save" }))] })] })) }));
+    var prjName = data === null || data === void 0 ? void 0 : data.name;
+    var _b = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(), name = _b[0], setName = _b[1];
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () { setName(prjName); }, [prjName]);
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], __assign({ show: show, onHide: function () { return handleClose(); } }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Header, __assign({ closeButton: true }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Title, { children: "Modal heading" }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Group, __assign({ className: "mb-3" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, { children: "Project name" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, { type: "text", value: name, autoFocus: true, onChange: function (e) { return setName(e.target.value); } })] })) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Footer, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__["default"], __assign({ variant: "secondary", onClick: function () { return handleClose(); } }, { children: "Cancel" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__["default"], __assign({ variant: "primary", onClick: function () { return handleClose(__assign(__assign({}, data), { name: name })); } }, { children: "Save" }))] })] })) }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditProject);
 
@@ -69746,9 +69748,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Nav.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Collapse.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Collapse.js");
 /* harmony import */ var _ServerAction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ServerAction */ "./src/ServerAction.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -69761,6 +69764,42 @@ var __assign = (undefined && undefined.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
  // we need this to make JSX compile
 
@@ -69768,11 +69807,33 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 var Project = function (_a) {
-    var data = _a.data, projects = _a.projects, setActiveProject = _a.setActiveProject, acitiveProject = _a.acitiveProject, updateProject = _a.updateProject;
+    var data = _a.data, projects = _a.projects, setActiveProject = _a.setActiveProject, acitiveProject = _a.acitiveProject, updateProject = _a.updateProject, editProject = _a.editProject, deleteProject = _a.deleteProject;
     var _b = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(data.collapsed), collapsed = _b[0], setCollapsed = _b[1];
+    var _c = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false), showControls = _c[0], setShowControls = _c[1];
+    var onUpClick = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, updateProject(data, _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].UP)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    var onDownClick = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, updateProject(data, _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].DOWN)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     var children = projects
         .filter(function (prj) { return prj.parentId === data.id; })
-        .map(function (prj) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Project, { data: prj, projects: projects, acitiveProject: acitiveProject, setActiveProject: setActiveProject, updateProject: updateProject }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); });
+        .sort(function (a, b) { var _a, _b; return ((_a = a.childOrder) !== null && _a !== void 0 ? _a : 0) - ((_b = b.childOrder) !== null && _b !== void 0 ? _b : 0); })
+        .map(function (prj) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Project, { data: prj, projects: projects, acitiveProject: acitiveProject, setActiveProject: setActiveProject, updateProject: updateProject, editProject: editProject, deleteProject: deleteProject }, lodash__WEBPACK_IMPORTED_MODULE_2___default().uniqueId())); });
     var collapse = function () {
         var newCollapsedState = collapsed == 1 ? 0 : 1;
         setCollapsed(newCollapsedState);
@@ -69787,12 +69848,14 @@ var Project = function (_a) {
     var arrowDown = "\u2B9F";
     var active = data.id === (acitiveProject === null || acitiveProject === void 0 ? void 0 : acitiveProject.id);
     var className = classnames__WEBPACK_IMPORTED_MODULE_3___default()("col", { active: active });
-    var projectItem = (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Link, __assign({ className: className, active: active, onClick: onClick }, { children: data.name }));
+    var projectItem = (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Link, __assign({ className: className, active: active, onClick: onClick }, { children: data.name })), showControls && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], __assign({ sm: "6" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: onUpClick, size: "sm" }, { children: "\u2B06" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: onDownClick, size: "sm" }, { children: "\u2B07" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: function () { return editProject(data); }, size: "sm" }, { children: "\u270E" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: function () { return deleteProject(data); }, size: "sm" }, { children: "\uD83D\uDDD1" }))] })))] });
     var padding = { paddingLeft: "20px" };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: hasChildren ?
-            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "link", size: "sm", onClick: collapse, className: 'col-1' }, { children: collapsed == 0 ? arrowDown : arrowRight })), projectItem] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], __assign({ in: collapsed == 0 }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", __assign({ style: padding }, { children: children })) }))] })
-            :
-                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-1' }), projectItem] }) }));
+    var taskClass = classnames__WEBPACK_IMPORTED_MODULE_3___default()("row", { "highlight": showControls });
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], __assign({ className: taskClass, onMouseEnter: function () { return setShowControls(true); }, onMouseLeave: function () { return setShowControls(false); } }, { children: [hasChildren ?
+                            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "link", size: "sm", onClick: collapse, className: 'col-1' }, { children: collapsed == 0 ? arrowDown : arrowRight }))
+                            :
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { sm: "1" }), projectItem] })), hasChildren &&
+                    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], __assign({ in: collapsed == 0 }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", __assign({ style: padding }, { children: children })) }))] }) }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Project);
 
@@ -69819,6 +69882,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Modal.js");
 /* harmony import */ var _ServerAction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ServerAction */ "./src/ServerAction.ts");
 /* harmony import */ var _EditProject__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EditProject */ "./src/EditProject.tsx");
 var __assign = (undefined && undefined.__assign) || function () {
@@ -69879,11 +69943,42 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 var Projects = function (_a) {
     var projects = _a.projects, refreshProjects = _a.refreshProjects, setActiveProject = _a.setActiveProject, acitiveProject = _a.acitiveProject;
     var _b = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false), show = _b[0], setShow = _b[1];
+    var _c = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false), showDeleteDialog = _c[0], setShowDeleteDialog = _c[1];
+    var _d = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null), editData = _d[0], setEditData = _d[1];
     var handleClose = function (newData) {
         setShow(false);
-        updateProject(newData, _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].CREATE);
+        var action = newData.id ? _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].UPDATE : _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].CREATE;
+        updateProject(newData, action);
     };
-    var handleShow = function () { return setShow(true); };
+    var handleShow = function () {
+        setEditData(null);
+        setShow(true);
+    };
+    var editProject = function (prjData) {
+        setEditData(prjData);
+        setShow(true);
+    };
+    var onDelClose = function () { return setShowDeleteDialog(false); };
+    var showDeleteProject = function (prjData) {
+        if (!prjData)
+            return;
+        setEditData(prjData);
+        setShowDeleteDialog(true);
+    };
+    var deleteProject = function (data) { return __awaiter(void 0, void 0, void 0, function () {
+        var action;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    setShowDeleteDialog(false);
+                    action = _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].DELETE;
+                    return [4 /*yield*/, updateProject(data, action)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     var updateProject = function (project, action) { return __awaiter(void 0, void 0, void 0, function () {
         var URI;
         return __generator(this, function (_a) {
@@ -69920,14 +70015,17 @@ var Projects = function (_a) {
                     return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_4___default().post(URI, project)];
                 case 1:
                     _a.sent();
-                    refreshProjects();
+                    if (action !== _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].SET_COLLAPSED) {
+                        refreshProjects();
+                    }
                     return [2 /*return*/];
             }
         });
     }); };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("aside", __assign({ className: 'projects' }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: "Projects" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "primary", onClick: function () { return setShow(true); } }, { children: "Primary" })), projects
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("aside", __assign({ className: 'projects' }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: "Projects" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "primary", onClick: handleShow }, { children: "+" })), projects
                 .filter(function (prj) { return lodash__WEBPACK_IMPORTED_MODULE_3___default().isUndefined(prj.parentId); })
-                .map(function (prj) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Project__WEBPACK_IMPORTED_MODULE_2__["default"], { data: prj, projects: projects, acitiveProject: acitiveProject, setActiveProject: setActiveProject, updateProject: updateProject }, lodash__WEBPACK_IMPORTED_MODULE_3___default().uniqueId())); }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_EditProject__WEBPACK_IMPORTED_MODULE_6__["default"], { show: show, handleClose: handleClose, data: null })] })));
+                .sort(function (a, b) { var _a, _b; return ((_a = a.childOrder) !== null && _a !== void 0 ? _a : 0) - ((_b = b.childOrder) !== null && _b !== void 0 ? _b : 0); })
+                .map(function (prj) { return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Project__WEBPACK_IMPORTED_MODULE_2__["default"], { data: prj, projects: projects, acitiveProject: acitiveProject, setActiveProject: setActiveProject, updateProject: updateProject, editProject: editProject, deleteProject: showDeleteProject }, lodash__WEBPACK_IMPORTED_MODULE_3___default().uniqueId())); }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_EditProject__WEBPACK_IMPORTED_MODULE_6__["default"], { show: show, handleClose: handleClose, data: editData }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], __assign({ show: showDeleteDialog, onHide: onDelClose }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"].Header, __assign({ closeButton: true }, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"].Title, { children: "Delete task" }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"].Body, { children: ["Do you want to delete project \"", editData === null || editData === void 0 ? void 0 : editData.name, "\"?"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"].Footer, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "secondary", onClick: onDelClose }, { children: "Cancel" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "primary", onClick: function () { return editData && deleteProject(editData); } }, { children: "Yes, delete it" }))] })] }))] })));
 };
 // const el = <Card title="Welcome!" paragraph="To this example" />
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Projects);
