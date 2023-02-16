@@ -24,7 +24,14 @@ const Project = ({ data, projects, setActiveProject, acitiveProject, updateProje
     const onDownClick = async () => {
         await updateProject(data, ServerAction.DOWN);
     };
-
+    const onLeftClick = async () => {
+        await updateProject(data, ServerAction.LEFT);
+        // refreshTasks();
+    };
+    const onRightClick = async () => {
+        await updateProject(data, ServerAction.RIGHT);
+        // refreshTasks();
+    };
     const children = projects
         .filter(prj => prj.parentId === data.id)
         .sort((a, b) => (a.childOrder ?? 0) - (b.childOrder ?? 0))
@@ -61,6 +68,8 @@ const Project = ({ data, projects, setActiveProject, acitiveProject, updateProje
             <Col sm="6">
                 <Button variant="outline-primary" onClick={onUpClick} size="sm">&#11014;</Button>
                 <Button variant="outline-primary" onClick={onDownClick} size="sm">&#11015;</Button>
+                <Button variant="outline-primary" onClick={onLeftClick} size="sm">&#9664;</Button>
+                <Button variant="outline-primary" onClick={onRightClick} size="sm">&#9654;</Button>
                 <Button variant="outline-primary" onClick={() => editProject(data)} size="sm">&#9998;</Button>
                 <Button variant="outline-primary" onClick={() => deleteProject(data)} size="sm">&#128465;</Button>
             </Col>

@@ -69830,6 +69830,26 @@ var Project = function (_a) {
             }
         });
     }); };
+    var onLeftClick = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, updateProject(data, _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].LEFT)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    var onRightClick = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, updateProject(data, _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].RIGHT)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     var children = projects
         .filter(function (prj) { return prj.parentId === data.id; })
         .sort(function (a, b) { var _a, _b; return ((_a = a.childOrder) !== null && _a !== void 0 ? _a : 0) - ((_b = b.childOrder) !== null && _b !== void 0 ? _b : 0); })
@@ -69848,7 +69868,7 @@ var Project = function (_a) {
     var arrowDown = "\u2B9F";
     var active = data.id === (acitiveProject === null || acitiveProject === void 0 ? void 0 : acitiveProject.id);
     var className = classnames__WEBPACK_IMPORTED_MODULE_3___default()("col", { active: active });
-    var projectItem = (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Link, __assign({ className: className, active: active, onClick: onClick }, { children: data.name })), showControls && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], __assign({ sm: "6" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: onUpClick, size: "sm" }, { children: "\u2B06" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: onDownClick, size: "sm" }, { children: "\u2B07" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: function () { return editProject(data); }, size: "sm" }, { children: "\u270E" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: function () { return deleteProject(data); }, size: "sm" }, { children: "\uD83D\uDDD1" }))] })))] });
+    var projectItem = (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Link, __assign({ className: className, active: active, onClick: onClick }, { children: data.name })), showControls && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], __assign({ sm: "6" }, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: onUpClick, size: "sm" }, { children: "\u2B06" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: onDownClick, size: "sm" }, { children: "\u2B07" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: onLeftClick, size: "sm" }, { children: "\u25C0" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: onRightClick, size: "sm" }, { children: "\u25B6" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: function () { return editProject(data); }, size: "sm" }, { children: "\u270E" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], __assign({ variant: "outline-primary", onClick: function () { return deleteProject(data); }, size: "sm" }, { children: "\uD83D\uDDD1" }))] })))] });
     var padding = { paddingLeft: "20px" };
     var taskClass = classnames__WEBPACK_IMPORTED_MODULE_3___default()("row", { "highlight": showControls });
     return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], __assign({ className: taskClass, onMouseEnter: function () { return setShowControls(true); }, onMouseLeave: function () { return setShowControls(false); } }, { children: [hasChildren ?
