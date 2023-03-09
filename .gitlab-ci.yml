@@ -29,4 +29,4 @@ build-job:       # This job runs in the build stage, which runs first.
   artifacts:
     name: "Todoapp frontend build"
     paths:
-    - "**/build/*.*"
+    - "./build/*.*"
