@@ -27,6 +27,6 @@ build:       # This job runs in the build stage, which runs first.
     - npm install webpack
     - npx webpack
   artifacts:
-    name: "Todoapp frontend build"
+    name: "build"
     paths:
     - "./build/*.*"
