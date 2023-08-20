@@ -47,28 +47,28 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
         let URI: string;
         switch (action) {
             case ServerAction.SET_COLLAPSED:
-                URI = `http://localhost:8081/api/project/collapsed`;
+                URI = `http://localhost:8080/api/project/collapsed`;
                 break;
             case ServerAction.UPDATE:
-                URI = `http://localhost:8081/api/project/update`;
+                URI = `http://localhost:8080/api/project/update`;
                 break;
             case ServerAction.CREATE:
-                URI = `http://localhost:8081/api/project/create`;
+                URI = `http://localhost:8080/api/project/create`;
                 break;
             case ServerAction.DELETE:
-                URI = `http://localhost:8081/api/project/delete`;
+                URI = `http://localhost:8080/api/project/delete`;
                 break;
             case ServerAction.UP:
-                URI = `http://localhost:8081/api/project/up`;
+                URI = `http://localhost:8080/api/project/up`;
                 break;
             case ServerAction.DOWN:
-                URI = `http://localhost:8081/api/project/down`;
+                URI = `http://localhost:8080/api/project/down`;
                 break;
             case ServerAction.RIGHT:
-                URI = `http://localhost:8081/api/project/right`;
+                URI = `http://localhost:8080/api/project/right`;
                 break;
             case ServerAction.LEFT:
-                URI = `http://localhost:8081/api/project/left`;
+                URI = `http://localhost:8080/api/project/left`;
                 break;
             default:
                 return;

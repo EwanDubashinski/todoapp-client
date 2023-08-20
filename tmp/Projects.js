@@ -60,7 +60,7 @@ var Projects = function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios.get('http://localhost:8081/api/projects')];
+                    return [4 /*yield*/, axios.get('http://localhost:8080/api/projects')];
                 case 1:
                     response = _a.sent();
                     json = response.data;

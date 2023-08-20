@@ -70,7 +70,7 @@ var Tasks = function (_a) {
     var _c = useState({ formMode: FormMode.READ, activeId: -1 }), formState = _c[0], setFormState = _c[1];
     var refreshTasks = function () {
         axios
-            .get('http://localhost:8081/api/items/' + acitiveProject)
+            .get('http://localhost:8080/api/items/' + acitiveProject)
             .then(function (res) { return setTasks(res.data); });
     };
     var updateTask = function (task, action) { return __awaiter(void 0, void 0, void 0, function () {
@@ -80,31 +80,31 @@ var Tasks = function (_a) {
                 case 0:
                     switch (action) {
                         case ServerAction.DONE:
-                            URI = "http://localhost:8081/api/item/done";
+                            URI = "http://localhost:8080/api/item/done";
                             break;
                         case ServerAction.UNDONE:
-                            URI = "http://localhost:8081/api/item/undone";
+                            URI = "http://localhost:8080/api/item/undone";
                             break;
                         case ServerAction.UPDATE:
-                            URI = "http://localhost:8081/api/item/update";
+                            URI = "http://localhost:8080/api/item/update";
                             break;
                         case ServerAction.CREATE:
-                            URI = "http://localhost:8081/api/item/create";
+                            URI = "http://localhost:8080/api/item/create";
                             break;
                         case ServerAction.DELETE:
-                            URI = "http://localhost:8081/api/item/delete";
+                            URI = "http://localhost:8080/api/item/delete";
                             break;
                         case ServerAction.UP:
-                            URI = "http://localhost:8081/api/item/up";
+                            URI = "http://localhost:8080/api/item/up";
                             break;
                         case ServerAction.DOWN:
-                            URI = "http://localhost:8081/api/item/down";
+                            URI = "http://localhost:8080/api/item/down";
                             break;
                         case ServerAction.RIGHT:
-                            URI = "http://localhost:8081/api/item/right";
+                            URI = "http://localhost:8080/api/item/right";
                             break;
                         case ServerAction.LEFT:
-                            URI = "http://localhost:8081/api/item/left";
+                            URI = "http://localhost:8080/api/item/left";
                             break;
                         default:
                             return [2 /*return*/];

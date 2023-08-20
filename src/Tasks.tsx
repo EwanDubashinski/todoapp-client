@@ -21,7 +21,7 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
     const refreshTasks = () => {
         if (!acitiveProject) return;
         axios
-            .get('http://localhost:8081/api/items/' + acitiveProject.id)
+            .get('http://localhost:8080/api/items/' + acitiveProject.id)
             .then(res => setTasks(res.data));
     };
 
@@ -29,31 +29,31 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
         let URI: string;
         switch (action) {
             case ServerAction.DONE:
-                URI = `http://localhost:8081/api/item/done`;
+                URI = `http://localhost:8080/api/item/done`;
                 break;
             case ServerAction.UNDONE:
-                URI = `http://localhost:8081/api/item/undone`;
+                URI = `http://localhost:8080/api/item/undone`;
                 break;
             case ServerAction.UPDATE:
-                URI = `http://localhost:8081/api/item/update`;
+                URI = `http://localhost:8080/api/item/update`;
                 break;
             case ServerAction.CREATE:
-                URI = `http://localhost:8081/api/item/create`;
+                URI = `http://localhost:8080/api/item/create`;
                 break;
             case ServerAction.DELETE:
-                URI = `http://localhost:8081/api/item/delete`;
+                URI = `http://localhost:8080/api/item/delete`;
                 break;
             case ServerAction.UP:
-                URI = `http://localhost:8081/api/item/up`;
+                URI = `http://localhost:8080/api/item/up`;
                 break;
             case ServerAction.DOWN:
-                URI = `http://localhost:8081/api/item/down`;
+                URI = `http://localhost:8080/api/item/down`;
                 break;
             case ServerAction.RIGHT:
-                URI = `http://localhost:8081/api/item/right`;
+                URI = `http://localhost:8080/api/item/right`;
                 break;
             case ServerAction.LEFT:
-                URI = `http://localhost:8081/api/item/left`;
+                URI = `http://localhost:8080/api/item/left`;
                 break;
             default:
                 return;
