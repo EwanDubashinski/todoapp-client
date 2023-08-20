@@ -8779,7 +8779,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Adds a CSS class to a given element.
- *
+ * 
  * @param element the element
  * @param className the CSS class name
  */
@@ -8832,7 +8832,7 @@ try {
 
 /**
  * An `addEventListener` ponyfill, supports the `once` option
- *
+ * 
  * @param node the element
  * @param eventName the event name
  * @param handle the handler
@@ -8913,7 +8913,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Checks if an element contains another given element.
- *
+ * 
  * @param context the context element
  * @param node the element to check
  */
@@ -8990,7 +8990,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Returns one or all computed style properties of an element.
- *
+ * 
  * @param node the element
  * @param psuedoElement the style property
  */
@@ -9014,7 +9014,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * Checks if a given element has a CSS class.
- *
+ * 
  * @param element the element
  * @param className the CSS class name
  */
@@ -9126,7 +9126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * Returns the owner document of a given element.
- *
+ * 
  * @param node the element
  */
 function ownerDocument(node) {
@@ -9150,7 +9150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Returns the owner window of a given element.
- *
+ * 
  * @param node the element
  */
 
@@ -9175,7 +9175,7 @@ __webpack_require__.r(__webpack_exports__);
 var toArray = Function.prototype.bind.call(Function.prototype.call, [].slice);
 /**
  * Runs `querySelectorAll` on a given element.
- *
+ * 
  * @param element the element
  * @param selector the selector
  */
@@ -9202,7 +9202,7 @@ function replaceClassName(origClass, classToRemove) {
 }
 /**
  * Removes a CSS class from a given element.
- *
+ * 
  * @param element the element
  * @param className the CSS class name
  */
@@ -9233,7 +9233,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * A `removeEventListener` ponyfill
- *
+ * 
  * @param node the element
  * @param eventName the event name
  * @param handle the handler
@@ -9355,7 +9355,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * Triggers an event on a given element.
- *
+ * 
  * @param node the element
  * @param eventName the event name to trigger
  * @param bubbles whether the event should bubble up
@@ -60735,7 +60735,7 @@ if (
 ) {
   __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 }
-
+        
   })();
 }
 
@@ -68479,7 +68479,7 @@ if (
 ) {
   __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 }
-
+        
   })();
 }
 
@@ -69156,7 +69156,7 @@ if (
 ) {
   __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 }
-
+        
   })();
 }
 
@@ -69204,15 +69204,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_bootstrap_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js!./bootstrap.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/bootstrap.css");
 
-
-
-
-
-
-
-
-
-
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
 var options = {};
 
@@ -69220,7 +69220,7 @@ options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTra
 options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
 
       options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
-
+    
 options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
 options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
 
@@ -70006,28 +70006,28 @@ var Projects = function (_a) {
                 case 0:
                     switch (action) {
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].SET_COLLAPSED:
-                            URI = "http://localhost:8080/api/project/collapsed";
+                            URI = "/api/project/collapsed";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].UPDATE:
-                            URI = "http://localhost:8080/api/project/update";
+                            URI = "/api/project/update";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].CREATE:
-                            URI = "http://localhost:8080/api/project/create";
+                            URI = "/api/project/create";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].DELETE:
-                            URI = "http://localhost:8080/api/project/delete";
+                            URI = "/api/project/delete";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].UP:
-                            URI = "http://localhost:8080/api/project/up";
+                            URI = "/api/project/up";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].DOWN:
-                            URI = "http://localhost:8080/api/project/down";
+                            URI = "/api/project/down";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].RIGHT:
-                            URI = "http://localhost:8080/api/project/right";
+                            URI = "/api/project/right";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_5__["default"].LEFT:
-                            URI = "http://localhost:8080/api/project/left";
+                            URI = "/api/project/left";
                             break;
                         default:
                             return [2 /*return*/];
@@ -70440,7 +70440,7 @@ var Tasks = function (_a) {
     var refreshTasks = function () {
         if (!acitiveProject)
             return;
-        axios__WEBPACK_IMPORTED_MODULE_6___default().get('http://localhost:8080/api/items/' + acitiveProject.id)
+        axios__WEBPACK_IMPORTED_MODULE_6___default().get('/api/items/' + acitiveProject.id)
             .then(function (res) { return setTasks(res.data); });
     };
     var updateTask = function (task, action) { return __awaiter(void 0, void 0, void 0, function () {
@@ -70450,31 +70450,31 @@ var Tasks = function (_a) {
                 case 0:
                     switch (action) {
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].DONE:
-                            URI = "http://localhost:8080/api/item/done";
+                            URI = "/api/item/done";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].UNDONE:
-                            URI = "http://localhost:8080/api/item/undone";
+                            URI = "/api/item/undone";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].UPDATE:
-                            URI = "http://localhost:8080/api/item/update";
+                            URI = "/api/item/update";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].CREATE:
-                            URI = "http://localhost:8080/api/item/create";
+                            URI = "/api/item/create";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].DELETE:
-                            URI = "http://localhost:8080/api/item/delete";
+                            URI = "/api/item/delete";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].UP:
-                            URI = "http://localhost:8080/api/item/up";
+                            URI = "/api/item/up";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].DOWN:
-                            URI = "http://localhost:8080/api/item/down";
+                            URI = "/api/item/down";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].RIGHT:
-                            URI = "http://localhost:8080/api/item/right";
+                            URI = "/api/item/right";
                             break;
                         case _ServerAction__WEBPACK_IMPORTED_MODULE_4__["default"].LEFT:
-                            URI = "http://localhost:8080/api/item/left";
+                            URI = "/api/item/left";
                             break;
                         default:
                             return [2 /*return*/];
@@ -71239,7 +71239,7 @@ function _setPrototypeOf(o, p) {
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/
+/******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -71253,20 +71253,20 @@ function _setPrototypeOf(o, p) {
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/
+/******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+/******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+/******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
+/******/ 	
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = __webpack_modules__;
-/******/
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -71279,7 +71279,7 @@ function _setPrototypeOf(o, p) {
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -71291,7 +71291,7 @@ function _setPrototypeOf(o, p) {
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -71303,12 +71303,12 @@ function _setPrototypeOf(o, p) {
 /******/ 			}
 /******/ 		})();
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -71319,7 +71319,7 @@ function _setPrototypeOf(o, p) {
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nmd = (module) => {
@@ -71328,38 +71328,38 @@ function _setPrototypeOf(o, p) {
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
 /******/ 		__webpack_require__.b = document.baseURI || self.location.href;
-/******/
+/******/ 		
 /******/ 		// object to store loaded and loading chunks
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"main": 0
 /******/ 		};
-/******/
+/******/ 		
 /******/ 		// no chunk on demand loading
-/******/
+/******/ 		
 /******/ 		// no prefetching
-/******/
+/******/ 		
 /******/ 		// no preloaded
-/******/
+/******/ 		
 /******/ 		// no HMR
-/******/
+/******/ 		
 /******/ 		// no HMR manifest
-/******/
+/******/ 		
 /******/ 		// no on chunks loaded
-/******/
+/******/ 		
 /******/ 		// no jsonp function
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/nonce */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nc = undefined;
 /******/ 	})();
-/******/
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
@@ -71459,7 +71459,7 @@ var App = function () {
         var res, activeProjectId, active;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_7___default().get('http://localhost:8080/api/projects')];
+                case 0: return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_7___default().get('/api/projects')];
                 case 1: return [4 /*yield*/, (_a.sent()).data];
                 case 2:
                     res = _a.sent();

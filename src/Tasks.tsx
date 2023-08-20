@@ -21,7 +21,7 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
     const refreshTasks = () => {
         if (!acitiveProject) return;
         axios
-            .get('http://localhost:8080/api/items/' + acitiveProject.id)
+            .get('/api/items/' + acitiveProject.id)
             .then(res => setTasks(res.data));
     };
 
@@ -29,31 +29,31 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
         let URI: string;
         switch (action) {
             case ServerAction.DONE:
-                URI = `http://localhost:8080/api/item/done`;
+                URI = `/api/item/done`;
                 break;
             case ServerAction.UNDONE:
-                URI = `http://localhost:8080/api/item/undone`;
+                URI = `/api/item/undone`;
                 break;
             case ServerAction.UPDATE:
-                URI = `http://localhost:8080/api/item/update`;
+                URI = `/api/item/update`;
                 break;
             case ServerAction.CREATE:
-                URI = `http://localhost:8080/api/item/create`;
+                URI = `/api/item/create`;
                 break;
             case ServerAction.DELETE:
-                URI = `http://localhost:8080/api/item/delete`;
+                URI = `/api/item/delete`;
                 break;
             case ServerAction.UP:
-                URI = `http://localhost:8080/api/item/up`;
+                URI = `/api/item/up`;
                 break;
             case ServerAction.DOWN:
-                URI = `http://localhost:8080/api/item/down`;
+                URI = `/api/item/down`;
                 break;
             case ServerAction.RIGHT:
-                URI = `http://localhost:8080/api/item/right`;
+                URI = `/api/item/right`;
                 break;
             case ServerAction.LEFT:
-                URI = `http://localhost:8080/api/item/left`;
+                URI = `/api/item/left`;
                 break;
             default:
                 return;

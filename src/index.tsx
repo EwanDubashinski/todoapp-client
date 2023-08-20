@@ -27,7 +27,7 @@ const App = () => {
     const [projects, setProjects] = useState(new Array<ProjectData>);
 
     const refreshProjects = async () => {
-        const res: ProjectData[] = await (await axios.get('http://localhost:8080/api/projects')).data;
+        const res: ProjectData[] = await (await axios.get('/api/projects')).data;
         const activeProjectId = localStorage.getItem("acitiveProject")
         if (acitiveProject == null && activeProjectId != null) {
             if (activeProjectId != null) {

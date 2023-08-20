@@ -18,7 +18,7 @@ var Projects = function (_a) {
     var setActiveProject = _a.setActiveProject, acitiveProject = _a.acitiveProject;
     var _b = useState(new Array), projects = _b[0], setProjects = _b[1];
     useEffect(function () {
-        axios.get('http://localhost:8080/api/projects')
+        axios.get('/api/projects')
             .then(function (res) { return setProjects(res.data); })
             .then(function () { return setActiveProject(localStorage.getItem("acitiveProject")); });
     }, []);
