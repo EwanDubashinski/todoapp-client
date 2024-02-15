@@ -24,6 +24,7 @@ build:       # This job runs in the build stage, which runs first.
   stage: build
   script:
     - wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" sh -
+    - source /root/.shrc
     - pnpm install
     - pnpm install vite typescript
     - tsc && vite build
