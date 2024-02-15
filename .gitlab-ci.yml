@@ -31,4 +31,4 @@ build:       # This job runs in the build stage, which runs first.
   artifacts:
     name: "build"
     paths:
-    - "./dist/*.*"
+    - "./dist/**"
