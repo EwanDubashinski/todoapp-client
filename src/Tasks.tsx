@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'; // we need this to make JSX compile
+import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { ProjectData, TaskData } from './types'
 import FormMode  from './FormMode'
@@ -6,7 +6,6 @@ import ServerAction  from './ServerAction'
 import Task from './Task';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-import { Toast } from 'react-bootstrap';
 
 type TasksProps = {
     acitiveProject: ProjectData | null,
@@ -63,7 +62,7 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
         refreshTasks();
     }
     const onNewClick = () => {
-        if (!acitiveProject) return;
+        if (!(acitiveProject && acitiveProject.id)) return;
         const newTask: TaskData = {
             content: "",
             projectId: acitiveProject.id,
@@ -124,7 +123,5 @@ const Tasks = ({ acitiveProject }: TasksProps) => {
         </ul>
     </div>)
 };
-
-// const el = <Card title="Welcome!" paragraph="To this example" />
 
 export default Tasks;

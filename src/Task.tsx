@@ -1,10 +1,9 @@
-import React, { ChangeEventHandler, useState, useEffect, useContext } from 'react'; // we need this to make JSX compile
+import { ChangeEventHandler, useState } from 'react';
 import { ProjectData, TaskData } from './types'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import _ from 'lodash';
 import classNames from 'classnames';
-import axios from 'axios';
 import FormMode from './FormMode';
 import ServerAction from './ServerAction';
 import Modal from 'react-bootstrap/Modal';
@@ -17,15 +16,18 @@ type TaskProps = {
     data: TaskData,
     acitiveProject: ProjectData | null,
     tasks: Array<TaskData>,
-    updateTask: Function,
+    updateTask: (task: TaskData, action: ServerAction) => void,
     formState: FormState,
-    setFormState: Function,
-    refreshTasks: Function
+    setFormState: React.Dispatch<React.SetStateAction<{
+        formMode: FormMode;
+        activeId: number;
+    }>>,
+    refreshTasks: () => void,
 };
 
 const Task = ({ data, tasks, acitiveProject, updateTask, formState, setFormState, refreshTasks }: TaskProps) => {
 // const Task = ({ data: { content, id, dateCompleted }, tasks, acitiveProject, upd }: TaskProps) => {
-    let { content, id, dateCompleted } = data;
+    const { content, id, dateCompleted } = data;
 
     const showInput = formState.activeId === id && formState.formMode !== FormMode.READ;
 

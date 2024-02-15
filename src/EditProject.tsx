@@ -1,20 +1,17 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { ProjectData } from './types';
 import { Modal } from 'react-bootstrap';
+import _ from 'lodash';
 type EditProjectProps = {
     show: boolean,
-    handleClose: Function,
+    handleClose: (newData?: ProjectData) => void,
     data: ProjectData | null,
 };
 
 const EditProject = ({ show, handleClose, data }: EditProjectProps) => {
+    if (!data) data = {};
     const prjName = data?.name;
     const [name, setName] = useState<string>();
     useEffect(() => { setName(prjName) }, [prjName]);
@@ -40,7 +37,10 @@ const EditProject = ({ show, handleClose, data }: EditProjectProps) => {
                 <Button variant="secondary" onClick={() => handleClose()}>
                     Cancel
                 </Button>
-                <Button variant="primary" onClick={() => handleClose({...data, name})}>
+                <Button variant="primary" onClick={() => {
+                    if (_.isEmpty(name)) return;
+                    handleClose({...data, name});
+                }}>
                     Save
                 </Button>
             </Modal.Footer>

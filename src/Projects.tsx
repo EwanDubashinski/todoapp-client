@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'; // we need this to make JSX compile
+import { useState } from 'react';
 import Project from './Project';
 import { ProjectData } from './types'
 import _ from 'lodash';
 import axios from 'axios';
-import { Accordion, Button, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import ServerAction from './ServerAction';
 import EditProject from './EditProject';
 
 type ProjectsProps = {
     projects: Array<ProjectData>,
-    refreshProjects: Function,
-    setActiveProject: Function,
+    refreshProjects: () => void,
+    setActiveProject: (active: ProjectData) => void,
     acitiveProject: ProjectData | null,
 };
 
@@ -19,10 +19,12 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [editData, setEditData] = useState<ProjectData | null>(null)
 
-    const handleClose = (newData: ProjectData) => {
+    const handleClose = (newData?: ProjectData) => {
         setShow(false);
-        const action = newData.id ? ServerAction.UPDATE : ServerAction.CREATE;
-        updateProject(newData, action);
+        if (newData) {
+            const action = newData.id ? ServerAction.UPDATE : ServerAction.CREATE;
+            updateProject(newData, action);
+        }
     };
     const handleShow = () => {
         setEditData(null);
@@ -119,7 +121,5 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
                 </Modal>
             </aside>)
     };
-
-// const el = <Card title="Welcome!" paragraph="To this example" />
 
 export default Projects;

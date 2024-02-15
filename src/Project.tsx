@@ -2,17 +2,17 @@ import React, { useState } from 'react'; // we need this to make JSX compile
 import { ProjectData } from './types'
 import _ from 'lodash';
 import classNames from 'classnames';
-import { Button, Col, Collapse, Modal, Nav, Row } from 'react-bootstrap';
+import { Button, Col, Collapse, Nav, Row } from 'react-bootstrap';
 import ServerAction from './ServerAction';
 
 type ProjectProps = {
     data: ProjectData,
     projects: Array<ProjectData>,
-    setActiveProject: Function,
+    setActiveProject: (active: ProjectData) => void,
     acitiveProject: ProjectData | null,
-    updateProject: Function,
-    editProject: Function,
-    deleteProject: Function,
+    updateProject: (project: ProjectData, action: ServerAction) => void,
+    editProject: (prjData: ProjectData) => void,
+    deleteProject: (data: ProjectData) => void,
 };
 
 const Project = ({ data, projects, setActiveProject, acitiveProject, updateProject, editProject, deleteProject }: ProjectProps) => {
