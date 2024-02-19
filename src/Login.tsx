@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,13 +45,17 @@ const Login = () => {
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" placeholder="Password" onChange={(e) => setPwd(e.target.value)} />
                </Form.Group>
-               <Button variant="primary" type="submit" onClick={submit}>
-                  Submit
-               </Button>
+               <Row>
+                  <Col >
+                     <Button variant="primary" type="submit" onClick={submit}>
+                        Submit
+                     </Button>
+                  </Col>
+                  <Col>
+                     <Button variant='secondary' onClick={() => navigate("/registration")}>Register</Button>
+                  </Col>
+               </Row>
             </Form>
-         </Row>
-         <Row>
-            <Button onClick={() => navigate("/registration")}>Register</Button>
          </Row>
       </Container>
    </>);
