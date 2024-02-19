@@ -10,10 +10,16 @@ import {
 
 // import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import Registration from './Registration';
 import Activation from './Activation';
 import App from './App';
+
+const checkAuthConfig: AxiosRequestConfig = {
+    headers: {
+        "X-Requested-With": "XMLHttpRequest"
+    }
+};
 
 const router = createBrowserRouter([
     {
@@ -21,7 +27,7 @@ const router = createBrowserRouter([
         element: <App />,
         loader: async () => {
             try {
-                return await axios.get("/api/user");
+                return (await axios.get("/api/user", checkAuthConfig));
             } catch (error) {
                 // console.log(error.response.data.error)
                 return redirect("/login");
@@ -33,7 +39,7 @@ const router = createBrowserRouter([
         element: <Login />,
         loader: async () => {
             try {
-                await axios.get("/api/user");
+                await axios.get("/api/user", checkAuthConfig);
                 return redirect("/");
             } catch (error) {
                 return null;
