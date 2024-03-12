@@ -14,6 +14,8 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import Registration from './Registration';
 import Activation from './Activation';
 import App from './App';
+import { store } from './store'
+import { Provider } from 'react-redux'
 
 const checkAuthConfig: AxiosRequestConfig = {
     headers: {
@@ -77,6 +79,8 @@ const container: HTMLElement = document.getElementById('root')!;
 const root = createRoot(container);
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
     </React.StrictMode>
 );

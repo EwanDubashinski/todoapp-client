@@ -6,33 +6,37 @@ import axios from 'axios';
 import { Button, Modal } from 'react-bootstrap';
 import ServerAction from './ServerAction';
 import EditProject from './EditProject';
+import { useDispatch, useSelector } from 'react-redux';
+import { showProjectModal, projectsSelectors } from './features/projects/projectsSlice';
+import { RootState } from './store';
 
 type ProjectsProps = {
-    projects: Array<ProjectData>,
-    refreshProjects: () => void,
+    // projects: Array<ProjectData>,
+    // refreshProjects: () => void,
     setActiveProject: (active: ProjectData) => void,
     acitiveProject: ProjectData | null,
 };
 
-const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject }: ProjectsProps) => {
-    const [show, setShow] = useState(false);
+const Projects = ({ /* projects, refreshProjects,*/ setActiveProject, acitiveProject }: ProjectsProps) => {
+    // const [show, setShow] = useState(false);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [editData, setEditData] = useState<ProjectData | null>(null)
 
-    const handleClose = (newData?: ProjectData) => {
-        setShow(false);
-        if (newData) {
-            const action = newData.id ? ServerAction.UPDATE : ServerAction.CREATE;
-            updateProject(newData, action);
-        }
-    };
-    const handleShow = () => {
-        setEditData(null);
-        setShow(true);
-    };
+    // const handleClose = (newData?: ProjectData) => {
+    //     // setShow(false);
+    //     if (newData) {
+    //         const action = newData.id ? ServerAction.UPDATE : ServerAction.CREATE;
+    //         updateProject(newData, action);
+    //     }
+    // };
+    // const handleShow = () => {
+    //     setEditData(null);
+    //     // setShow(true);
+    // };
+    const dispatch = useDispatch();
     const editProject = (prjData: ProjectData) => {
         setEditData(prjData);
-        setShow(true);
+        // setShow(true);
     };
     const onDelClose = () => setShowDeleteDialog(false);
     const showDeleteProject = (prjData: ProjectData) => {
@@ -78,13 +82,17 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
         await axios.post(URI, project);
 
         if (action !== ServerAction.SET_COLLAPSED) {
-            refreshProjects();
+            // refreshProjects();
         }
     }
 
+
+    // const projects = useSelector((state: RootState) => state.projects.entities);
+    const projects = useSelector(projectsSelectors.selectAll);
+
     return (<aside className='projects'>
                 <h2>Projects</h2>
-                <Button variant="primary" onClick={handleShow}>+</Button>
+                <Button variant="primary" onClick={() => dispatch(showProjectModal(null))}>+</Button>
                 {/* <Accordion alwaysOpen flush> */}
                     {projects
                         .filter(prj => _.isUndefined(prj.parentId))
@@ -102,7 +110,7 @@ const Projects = ({ projects, refreshProjects, setActiveProject, acitiveProject 
                             />
                     ))}
                 {/* </Accordion> */}
-                <EditProject show={show} handleClose={handleClose} data={editData}/>
+                <EditProject/>
                 <Modal show={showDeleteDialog} onHide={onDelClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete task</Modal.Title>

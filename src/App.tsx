@@ -9,28 +9,32 @@ import Tasks from './Tasks';
 import { useLoaderData } from "react-router-dom";
 import { ProjectData, UserData } from './types';
 import { Nav } from 'react-bootstrap';
+import { fetchProjects } from './features/projects/projectsSlice';
+import { AppDispatch } from './store';
+import { useDispatch } from 'react-redux';
 
 
 
 const App = () => {
-   const [projects, setProjects] = useState(new Array<ProjectData>);
+//    const [projects, setProjects] = useState(new Array<ProjectData>);
 
-   const refreshProjects = async () => {
-       const res: ProjectData[] = await (await axios.get('/api/projects')).data;
-       const activeProjectId = localStorage.getItem("acitiveProject")
-       if (acitiveProject == null && activeProjectId != null) {
-           if (activeProjectId != null) {
-               const active = res.find(project => project.id == Number(activeProjectId));
-               if (active) {
-                   setActiveProject(active);
-               }
-           }
-       }
-       setProjects(res);
-   };
-
+//    const refreshProjects = async () => {
+//        const res: ProjectData[] = await (await axios.get('/api/projects')).data;
+//        const activeProjectId = localStorage.getItem("acitiveProject")
+//        if (acitiveProject == null && activeProjectId != null) {
+//            if (activeProjectId != null) {
+//                const active = res.find(project => project.id == Number(activeProjectId));
+//                if (active) {
+//                    setActiveProject(active);
+//                }
+//            }
+//        }
+//        setProjects(res);
+//    };
+    const dispatch: AppDispatch = useDispatch();
    useEffect(() => {
-       refreshProjects();
+       dispatch(fetchProjects());
+    //    refreshProjects();
    }, []);
 
    const [acitiveProject, setActiveProjectInState] = useState<ProjectData | null>(null);
@@ -57,7 +61,7 @@ const App = () => {
        </Navbar>
        <Row>
            <Col sm={12} md={3}>
-               <Projects projects={projects} refreshProjects={refreshProjects} acitiveProject={acitiveProject} setActiveProject={setActiveProject} />
+               <Projects acitiveProject={acitiveProject} setActiveProject={setActiveProject} />
            </Col>
            <Col>
                <Tasks acitiveProject={acitiveProject} />

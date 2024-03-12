@@ -4,6 +4,9 @@ import _ from 'lodash';
 import classNames from 'classnames';
 import { Button, Col, Collapse, Nav, Row } from 'react-bootstrap';
 import ServerAction from './ServerAction';
+import { AppDispatch } from './store';
+import { useDispatch } from 'react-redux';
+import { showProjectModal } from './features/projects/projectsSlice';
 
 type ProjectProps = {
     data: ProjectData,
@@ -61,6 +64,7 @@ const Project = ({ data, projects, setActiveProject, acitiveProject, updateProje
     const arrowDown = "\u2B9F";
     const active = data.id === acitiveProject?.id;
     const className = classNames("col", { active: active });
+    const dispatch: AppDispatch = useDispatch();
     const projectItem =
     <>
         <Nav.Link className={className} active={active} onClick={onClick}>{data.name}</Nav.Link>
@@ -70,7 +74,8 @@ const Project = ({ data, projects, setActiveProject, acitiveProject, updateProje
                 <Button variant="outline-primary" onClick={onDownClick} size="sm">&#11015;</Button>
                 <Button variant="outline-primary" onClick={onLeftClick} size="sm">&#9664;</Button>
                 <Button variant="outline-primary" onClick={onRightClick} size="sm">&#9654;</Button>
-                <Button variant="outline-primary" onClick={() => editProject(data)} size="sm">&#9998;</Button>
+                {/* <Button variant="outline-primary" onClick={() => editProject(data)} size="sm">&#9998;</Button> */}
+                <Button variant="outline-primary" onClick={() => dispatch(showProjectModal(data))} size="sm">&#9998;</Button>
                 <Button variant="outline-primary" onClick={() => deleteProject(data)} size="sm">&#128465;</Button>
             </Col>
         )}
