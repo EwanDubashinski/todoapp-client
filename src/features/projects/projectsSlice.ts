@@ -16,12 +16,14 @@ type ProjectsState = {
    loadingStatus: string,
    error: null | SerializedError,
    showProjectModal: boolean,
+   showDeleteModal: boolean,
    currentProjectData: ProjectData | null,
 };
 const projectsState: ProjectsState = {
    loadingStatus: 'idle',
    error: null,
    showProjectModal: false,
+   showDeleteModal: false,
    currentProjectData: null,
 };
 
@@ -50,6 +52,13 @@ export const updateProject = createAsyncThunk(
       return response.data;
    }
 );
+export const deleteProject = createAsyncThunk(
+   'projects/delete',
+   async (project: ProjectData) => {
+      const response = await axios.post(ProjectsServerActions.DELETE, project);
+      return response.data;
+   }
+);
 
 const isPendingAction = (action: UnknownAction): action is PendingAction => {
    return typeof action.type === 'string' && action.type.endsWith('/pending')
@@ -66,11 +75,10 @@ export const projectsSlice = createSlice({
          state.showProjectModal = true;
          state.currentProjectData = payload;
       },
-      // addProject: (state, { payload }) => {
-      //    // projectsAdapter.addOne(state, {...payload, id: -1}); I'll make it later
-      //    createProject(payload);
-      //    state.showProjectModal = false;
-      // },
+      showDeleteModal: (state, { payload }) => {
+         state.showDeleteModal = true;
+         state.currentProjectData = payload;
+      },
       setCurrentProjectName: (state, {payload}) => {
          if (state.currentProjectData === null) {
             state.currentProjectData = {id: -1};
@@ -79,6 +87,9 @@ export const projectsSlice = createSlice({
       },
       hideProjectModal: (state) => {
          state.showProjectModal = false;
+      },
+      hideDeleteModal: (state) => {
+         state.showDeleteModal = false;
       },
    },
    extraReducers: (builder) => {
@@ -98,6 +109,11 @@ export const projectsSlice = createSlice({
             state.loadingStatus = 'idle';
             state.error = null;
          })
+         .addCase(deleteProject.fulfilled, (state, action) => {
+            projectsAdapter.removeOne(state, action);
+            state.loadingStatus = 'idle';
+            state.error = null;
+         })
          .addMatcher(isPendingAction, (state, action) => {
             state.showProjectModal = false;
             state.currentProjectData = null;
@@ -112,6 +128,6 @@ export const projectsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { showProjectModal, hideProjectModal, setCurrentProjectName } = projectsSlice.actions;
+export const { showProjectModal, hideProjectModal, setCurrentProjectName, showDeleteModal, hideDeleteModal } = projectsSlice.actions;
 export const projectsSelectors = projectsAdapter.getSelectors((state: RootState) => state.projects);
 export default projectsSlice.reducer;

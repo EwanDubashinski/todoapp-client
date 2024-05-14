@@ -9,6 +9,7 @@ import EditProject from './EditProject';
 import { useDispatch, useSelector } from 'react-redux';
 import { showProjectModal, projectsSelectors } from './features/projects/projectsSlice';
 import { RootState } from './store';
+import DeleteProject from './DeleteProject';
 
 type ProjectsProps = {
     // projects: Array<ProjectData>,
@@ -19,7 +20,7 @@ type ProjectsProps = {
 
 const Projects = ({ /* projects, refreshProjects,*/ setActiveProject, acitiveProject }: ProjectsProps) => {
     // const [show, setShow] = useState(false);
-    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    // const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [editData, setEditData] = useState<ProjectData | null>(null)
 
     // const handleClose = (newData?: ProjectData) => {
@@ -38,17 +39,7 @@ const Projects = ({ /* projects, refreshProjects,*/ setActiveProject, acitivePro
         setEditData(prjData);
         // setShow(true);
     };
-    const onDelClose = () => setShowDeleteDialog(false);
-    const showDeleteProject = (prjData: ProjectData) => {
-        if (!prjData) return;
-        setEditData(prjData);
-        setShowDeleteDialog(true);
-    };
-    const deleteProject = async (data: ProjectData) => {
-        setShowDeleteDialog(false);
-        const action = ServerAction.DELETE;
-        await updateProject(data, action);
-    };
+
     const updateProject = async (project: ProjectData, action: ServerAction) => {
         let URI: string;
         switch (action) {
@@ -104,29 +95,11 @@ const Projects = ({ /* projects, refreshProjects,*/ setActiveProject, acitivePro
                                 projects={projects}
                                 acitiveProject={acitiveProject}
                                 setActiveProject={setActiveProject}
-                                updateProject={updateProject}
-                                editProject={editProject}
-                                deleteProject={showDeleteProject}
                             />
                     ))}
                 {/* </Accordion> */}
                 <EditProject/>
-                <Modal show={showDeleteDialog} onHide={onDelClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Delete task</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Do you want to delete project "{editData?.name}"?
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={onDelClose}>
-                            Cancel
-                        </Button>
-                        <Button variant="primary" onClick={() => editData && deleteProject(editData)}>
-                            Yes, delete it
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                <DeleteProject/>
             </aside>)
     };
 

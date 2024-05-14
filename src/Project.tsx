@@ -6,33 +6,30 @@ import { Button, Col, Collapse, Nav, Row } from 'react-bootstrap';
 import ServerAction from './ServerAction';
 import { AppDispatch } from './store';
 import { useDispatch } from 'react-redux';
-import { showProjectModal } from './features/projects/projectsSlice';
+import { showDeleteModal, showProjectModal } from './features/projects/projectsSlice';
 
 type ProjectProps = {
     data: ProjectData,
     projects: Array<ProjectData>,
     setActiveProject: (active: ProjectData) => void,
     acitiveProject: ProjectData | null,
-    updateProject: (project: ProjectData, action: ServerAction) => void,
-    editProject: (prjData: ProjectData) => void,
-    deleteProject: (data: ProjectData) => void,
 };
 
-const Project = ({ data, projects, setActiveProject, acitiveProject, updateProject, editProject, deleteProject }: ProjectProps) => {
+const Project = ({ data, projects, setActiveProject, acitiveProject }: ProjectProps) => {
     const [collapsed, setCollapsed] = useState(data.collapsed);
     const [showControls, setShowControls] = useState(false);
     const onUpClick = async () => {
-        await updateProject(data, ServerAction.UP);
+        // await updateProject(data, ServerAction.UP);
     };
     const onDownClick = async () => {
-        await updateProject(data, ServerAction.DOWN);
+        // await updateProject(data, ServerAction.DOWN);
     };
     const onLeftClick = async () => {
-        await updateProject(data, ServerAction.LEFT);
+        // await updateProject(data, ServerAction.LEFT);
         // refreshTasks();
     };
     const onRightClick = async () => {
-        await updateProject(data, ServerAction.RIGHT);
+        // await updateProject(data, ServerAction.RIGHT);
         // refreshTasks();
     };
     const children = projects
@@ -45,15 +42,12 @@ const Project = ({ data, projects, setActiveProject, acitiveProject, updateProje
                 projects={projects}
                 acitiveProject={acitiveProject}
                 setActiveProject={setActiveProject}
-                updateProject={updateProject}
-                editProject={editProject}
-                deleteProject={deleteProject}
             />
         ));
     const collapse = () => {
         const newCollapsedState = collapsed == 1 ? 0 : 1
         setCollapsed(newCollapsedState);
-        updateProject({ ...data, collapsed: newCollapsedState }, ServerAction.SET_COLLAPSED);
+        // updateProject({ ...data, collapsed: newCollapsedState }, ServerAction.SET_COLLAPSED);
     };
     const hasChildren = children.length > 0;
     const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -76,7 +70,8 @@ const Project = ({ data, projects, setActiveProject, acitiveProject, updateProje
                 <Button variant="outline-primary" onClick={onRightClick} size="sm">&#9654;</Button>
                 {/* <Button variant="outline-primary" onClick={() => editProject(data)} size="sm">&#9998;</Button> */}
                 <Button variant="outline-primary" onClick={() => dispatch(showProjectModal(data))} size="sm">&#9998;</Button>
-                <Button variant="outline-primary" onClick={() => deleteProject(data)} size="sm">&#128465;</Button>
+                {/* <Button variant="outline-primary" onClick={() => deleteProject(data)} size="sm">&#128465;</Button> */}
+                <Button variant="outline-primary" onClick={() => dispatch(showDeleteModal(data))} size="sm">&#128465;</Button>
             </Col>
         )}
     </>
@@ -102,9 +97,6 @@ const Project = ({ data, projects, setActiveProject, acitiveProject, updateProje
                 </div>
             </Collapse>}
         </>
-
-
-
     </>);
 };
 
