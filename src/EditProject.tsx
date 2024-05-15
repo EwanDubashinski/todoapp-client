@@ -1,31 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useEffect, useState } from 'react';
-import { ProjectData } from './types';
 import { Modal } from 'react-bootstrap';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProject, hideProjectModal, setCurrentProjectName, updateProject } from './features/projects/projectsSlice';
 import { AppDispatch, RootState } from './store';
-type EditProjectProps = {
-    show: boolean,
-    handleClose: (newData?: ProjectData) => void,
-    data: ProjectData | null,
-};
+
 
 const EditProject = () => {
-    // if (!data) data = {};
     const show = useSelector((state: RootState) => state.projects.showProjectModal);
 
     const handleClose = () => dispatch(hideProjectModal());
-    // const prjName = data?.name;
-    // const [name, setName] = useState<string>();
-    // const [data, setData] = useState<ProjectData>();
-    // useEffect(() => {
-    //     const data = useSelector((state: RootState) => state.projects.currentProjectData);
-    //     if (data) setData(data);
-    //     else setData({id: -1});
-    // }, []);
     const data = useSelector((state: RootState) => state.projects.currentProjectData);
     const dispatch: AppDispatch = useDispatch();
     return (<>

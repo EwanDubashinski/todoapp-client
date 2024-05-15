@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -13,28 +13,10 @@ import { fetchProjects } from './features/projects/projectsSlice';
 import { AppDispatch } from './store';
 import { useDispatch } from 'react-redux';
 
-
-
 const App = () => {
-//    const [projects, setProjects] = useState(new Array<ProjectData>);
-
-//    const refreshProjects = async () => {
-//        const res: ProjectData[] = await (await axios.get('/api/projects')).data;
-//        const activeProjectId = localStorage.getItem("acitiveProject")
-//        if (acitiveProject == null && activeProjectId != null) {
-//            if (activeProjectId != null) {
-//                const active = res.find(project => project.id == Number(activeProjectId));
-//                if (active) {
-//                    setActiveProject(active);
-//                }
-//            }
-//        }
-//        setProjects(res);
-//    };
     const dispatch: AppDispatch = useDispatch();
    useEffect(() => {
        dispatch(fetchProjects());
-    //    refreshProjects();
    }, []);
 
    const [acitiveProject, setActiveProjectInState] = useState<ProjectData | null>(null);

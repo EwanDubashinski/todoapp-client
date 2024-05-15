@@ -3,7 +3,6 @@ import { ProjectData } from './types'
 import _ from 'lodash';
 import classNames from 'classnames';
 import { Button, Col, Collapse, Nav, Row } from 'react-bootstrap';
-import ServerAction from './ServerAction';
 import { AppDispatch } from './store';
 import { useDispatch } from 'react-redux';
 import { showDeleteModal, showProjectModal } from './features/projects/projectsSlice';

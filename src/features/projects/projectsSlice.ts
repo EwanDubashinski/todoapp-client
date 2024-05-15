@@ -1,6 +1,6 @@
 import { createSlice, createEntityAdapter, createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit'
-import type { PayloadAction, SerializedError, UnknownAction } from '@reduxjs/toolkit'
-import axios, { AxiosResponse } from 'axios';
+import type { SerializedError, UnknownAction } from '@reduxjs/toolkit'
+import axios from 'axios';
 import ProjectsServerActions from './ProjectsServerActions';
 import { ProjectData } from '../../types';
 import { RootState } from '../../store';
@@ -10,7 +10,7 @@ type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
 
 type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
 type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
-type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
+// type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
 
 type ProjectsState = {
    loadingStatus: string,
@@ -114,7 +114,7 @@ export const projectsSlice = createSlice({
             state.loadingStatus = 'idle';
             state.error = null;
          })
-         .addMatcher(isPendingAction, (state, action) => {
+         .addMatcher(isPendingAction, (state) => {
             state.showProjectModal = false;
             state.showDeleteModal = false;
             state.currentProjectData = null;
