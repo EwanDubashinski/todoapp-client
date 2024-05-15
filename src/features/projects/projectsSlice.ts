@@ -116,8 +116,9 @@ export const projectsSlice = createSlice({
          })
          .addMatcher(isPendingAction, (state, action) => {
             state.showProjectModal = false;
+            state.showDeleteModal = false;
             state.currentProjectData = null;
-            state.loadingStatus = 'loading'
+            state.loadingStatus = 'loading';
          })
          .addMatcher(isRejectedAction, (state, action) => {
             state.loadingStatus = 'failed';
