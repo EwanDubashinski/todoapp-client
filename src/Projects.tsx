@@ -26,7 +26,6 @@ const Projects = ({ /* projects, refreshProjects,*/ setActiveProject, acitivePro
                             <Project
                                 key={_.uniqueId()}
                                 data={prj}
-                                projects={projects}
                                 acitiveProject={acitiveProject}
                                 setActiveProject={setActiveProject}
                             />

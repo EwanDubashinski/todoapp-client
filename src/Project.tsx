@@ -4,20 +4,46 @@ import _ from 'lodash';
 import classNames from 'classnames';
 import { Button, Col, Collapse, Nav, Row } from 'react-bootstrap';
 import { AppDispatch } from './store';
-import { useDispatch } from 'react-redux';
-import { showDeleteModal, showProjectModal } from './features/projects/projectsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { showDeleteModal, showProjectModal, projectsSelectors, updateProjects, updateProjectsLocally } from './features/projects/projectsSlice';
 
 type ProjectProps = {
     data: ProjectData,
-    projects: Array<ProjectData>,
+    // projects: Array<ProjectData>,
     setActiveProject: (active: ProjectData) => void,
     acitiveProject: ProjectData | null,
 };
 
-const Project = ({ data, projects, setActiveProject, acitiveProject }: ProjectProps) => {
+const Project = ({ data, setActiveProject, acitiveProject }: ProjectProps) => {
     const [collapsed, setCollapsed] = useState(data.collapsed);
     const [showControls, setShowControls] = useState(false);
+    const projects = useSelector(projectsSelectors.selectAll);
+    const siblingProjects = projects.filter(prj => prj.parentId === data.parentId);
+    const dispatch: AppDispatch = useDispatch();
+
     const onUpClick = async () => {
+        if (data.childOrder === 0) return;
+
+        const projectAbove: ProjectData = siblingProjects
+                .filter(prj => prj.childOrder < data.childOrder)
+                .sort((a, b) => b.childOrder - a.childOrder)[0];
+
+        if (!_.isNil(projectAbove)) {
+            const oldOrder = data.childOrder;
+            const newOrder = projectAbove.childOrder;
+            // data.childOrder = newOrder;
+            // projectAbove.childOrder = oldOrder;
+            const updatedProjects = [
+                { ...projectAbove, childOrder: oldOrder },
+                { ...data, childOrder: newOrder }
+            ];
+
+            dispatch(updateProjectsLocally(updatedProjects));
+            dispatch(updateProjects(updatedProjects));
+
+            // dispatch(updateProject({...projectAbove, childOrder: oldOrder}));
+            // dispatch(updateProject({...data, childOrder: newOrder}));
+        }
         // await updateProject(data, ServerAction.UP);
     };
     const onDownClick = async () => {
@@ -38,7 +64,6 @@ const Project = ({ data, projects, setActiveProject, acitiveProject }: ProjectPr
             <Project
                 key={_.uniqueId()}
                 data={prj}
-                projects={projects}
                 acitiveProject={acitiveProject}
                 setActiveProject={setActiveProject}
             />
@@ -57,10 +82,11 @@ const Project = ({ data, projects, setActiveProject, acitiveProject }: ProjectPr
     const arrowDown = "\u2B9F";
     const active = data.id === acitiveProject?.id;
     const className = classNames("col", { active: active });
-    const dispatch: AppDispatch = useDispatch();
     const projectItem =
     <>
-        <Nav.Link className={className} active={active} onClick={onClick}>{data.name}</Nav.Link>
+        <Nav.Link className={className} active={active} onClick={onClick}>
+            {String(data.childOrder).padStart(2, "0")} | {data.name}
+        </Nav.Link>
         {showControls && (
             <Col sm="6">
                 <Button variant="outline-primary" onClick={onUpClick} size="sm">&#11014;</Button>

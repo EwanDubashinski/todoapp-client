@@ -52,6 +52,13 @@ export const updateProject = createAsyncThunk(
       return response.data;
    }
 );
+export const updateProjects = createAsyncThunk(
+   'projects/updateMany',
+   async (projects: ProjectData[]) => {
+      const response = await axios.put(ProjectsServerActions.UPDATE_MANY, projects);
+      return response.data;
+   }
+);
 export const deleteProject = createAsyncThunk(
    'projects/delete',
    async (project: ProjectData) => {
@@ -71,6 +78,9 @@ export const projectsSlice = createSlice({
    name: 'projects',
    initialState,
    reducers: {
+      updateProjectsLocally: (state, action) => {
+         projectsAdapter.setMany(state, action);
+      },
       showProjectModal: (state, { payload }) => {
          state.showProjectModal = true;
          state.currentProjectData = payload;
@@ -81,7 +91,7 @@ export const projectsSlice = createSlice({
       },
       setCurrentProjectName: (state, {payload}) => {
          if (state.currentProjectData === null) {
-            state.currentProjectData = {id: -1};
+            state.currentProjectData = {id: -1, childOrder: -1}; // TODO: make a prototype?
          }
          state.currentProjectData.name = payload;
       },
@@ -109,11 +119,19 @@ export const projectsSlice = createSlice({
             state.loadingStatus = 'idle';
             state.error = null;
          })
+         .addCase(updateProjects.fulfilled, (state, action) => {
+            projectsAdapter.setMany(state, action);
+            state.loadingStatus = 'idle';
+            state.error = null;
+         })
          .addCase(deleteProject.fulfilled, (state, action) => {
             projectsAdapter.removeOne(state, action);
             state.loadingStatus = 'idle';
             state.error = null;
          })
+         // .addCase(updateProjects.pending, (state, action) => {
+         //    projectsAdapter.setMany(state, action);
+         // })
          .addMatcher(isPendingAction, (state) => {
             state.showProjectModal = false;
             state.showDeleteModal = false;
@@ -129,6 +147,6 @@ export const projectsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { showProjectModal, hideProjectModal, setCurrentProjectName, showDeleteModal, hideDeleteModal } = projectsSlice.actions;
+export const { showProjectModal, hideProjectModal, setCurrentProjectName, showDeleteModal, hideDeleteModal, updateProjectsLocally } = projectsSlice.actions;
 export const projectsSelectors = projectsAdapter.getSelectors((state: RootState) => state.projects);
 export default projectsSlice.reducer;

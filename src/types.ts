@@ -16,7 +16,7 @@
 // };
 
 export type ProjectData = {
-    childOrder?: number,
+    childOrder: number,
     collapsed?: number,
     color?: number,
     has_more_notes?: boolean,
