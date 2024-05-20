@@ -78,6 +78,38 @@ export const projectsSlice = createSlice({
    name: 'projects',
    initialState,
    reducers: {
+      updatePosition: (state, { payload }) => {
+         if (payload.project.parentId !== payload.parentIdNew) {
+            // projectsAdapter.removeOne(state, payload.project.id);
+            const projects: ProjectData[] = Object.values(state.entities)
+                  .filter(prj => prj.childOrder >= payload.childOrderNew &&
+                                 prj.parentId === payload.parentIdNew)
+                  .map(prj => ({...prj, childOrder: prj.childOrder + 1}));
+            // projects.push(payload.project);
+            projectsAdapter.setMany(state, [...projects, { ...payload.project, childOrder: payload.childOrderNew, parentId: payload.parentIdNew }]);
+            // projectsSelectors
+            //       .selectAll(state).filter(prj => prj.childOrder >= payload.childOrderNew)
+         } else {
+            if (payload.project.childOrder < payload.childOrderNew) {
+               const projects: ProjectData[] = Object.values(state.entities)
+                  .filter(prj => prj.childOrder > payload.project.childOrder &&
+                                 prj.childOrder <= payload.childOrderNew &&
+                                 prj.parentId === payload.parentIdNew)
+                  .map(prj => ({ ...prj, childOrder: prj.childOrder - 1 }));
+               projectsAdapter.setMany(state, [...projects, { ...payload.project, childOrder: payload.childOrderNew }]);
+            } else {
+               const projects: ProjectData[] = Object.values(state.entities)
+                  .filter(prj => prj.childOrder < payload.project.childOrder &&
+                                 prj.childOrder >= payload.childOrderNew &&
+                                 prj.parentId === payload.parentIdNew)
+                  .map(prj => ({ ...prj, childOrder: prj.childOrder + 1 }));
+               projectsAdapter.setMany(state, [...projects, { ...payload.project, childOrder: payload.childOrderNew }]);
+            }
+         }
+         // payload.childOrder
+         // payload.parentId
+
+      },
       updateProjectsLocally: (state, action) => {
          projectsAdapter.setMany(state, action);
       },
@@ -129,9 +161,6 @@ export const projectsSlice = createSlice({
             state.loadingStatus = 'idle';
             state.error = null;
          })
-         // .addCase(updateProjects.pending, (state, action) => {
-         //    projectsAdapter.setMany(state, action);
-         // })
          .addMatcher(isPendingAction, (state) => {
             state.showProjectModal = false;
             state.showDeleteModal = false;
@@ -147,6 +176,6 @@ export const projectsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { showProjectModal, hideProjectModal, setCurrentProjectName, showDeleteModal, hideDeleteModal, updateProjectsLocally } = projectsSlice.actions;
+export const { showProjectModal, hideProjectModal, setCurrentProjectName, showDeleteModal, hideDeleteModal, updateProjectsLocally, updatePosition } = projectsSlice.actions;
 export const projectsSelectors = projectsAdapter.getSelectors((state: RootState) => state.projects);
 export default projectsSlice.reducer;

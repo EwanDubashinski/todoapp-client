@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Button, Col, Collapse, Nav, Row } from 'react-bootstrap';
 import { AppDispatch } from './store';
 import { useDispatch, useSelector } from 'react-redux';
-import { showDeleteModal, showProjectModal, projectsSelectors, updateProjects, updateProjectsLocally } from './features/projects/projectsSlice';
+import { showDeleteModal, showProjectModal, projectsSelectors, updateProjects, updateProjectsLocally, updatePosition } from './features/projects/projectsSlice';
 
 type ProjectProps = {
     data: ProjectData,
@@ -28,23 +28,19 @@ const Project = ({ data, setActiveProject, acitiveProject }: ProjectProps) => {
                 .filter(prj => prj.childOrder < data.childOrder)
                 .sort((a, b) => b.childOrder - a.childOrder)[0];
 
-        if (!_.isNil(projectAbove)) {
-            const oldOrder = data.childOrder;
-            const newOrder = projectAbove.childOrder;
-            // data.childOrder = newOrder;
-            // projectAbove.childOrder = oldOrder;
-            const updatedProjects = [
-                { ...projectAbove, childOrder: oldOrder },
-                { ...data, childOrder: newOrder }
-            ];
+        dispatch(updatePosition({ project: data, childOrderNew: projectAbove.childOrder, parentIdNew: data.parentId }));
 
-            dispatch(updateProjectsLocally(updatedProjects));
-            dispatch(updateProjects(updatedProjects));
+        // if (!_.isNil(projectAbove)) {
+        //     const oldOrder = data.childOrder;
+        //     const newOrder = projectAbove.childOrder;
+        //     const updatedProjects = [
+        //         { ...projectAbove, childOrder: oldOrder },
+        //         { ...data, childOrder: newOrder }
+        //     ];
 
-            // dispatch(updateProject({...projectAbove, childOrder: oldOrder}));
-            // dispatch(updateProject({...data, childOrder: newOrder}));
-        }
-        // await updateProject(data, ServerAction.UP);
+        //     dispatch(updateProjectsLocally(updatedProjects));
+        //     dispatch(updateProjects(updatedProjects));
+        // }
     };
     const onDownClick = async () => {
         // await updateProject(data, ServerAction.DOWN);
