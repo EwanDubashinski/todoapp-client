@@ -3,9 +3,10 @@ import { ProjectData } from './types'
 import _ from 'lodash';
 import classNames from 'classnames';
 import { Button, Col, Collapse, Nav, Row } from 'react-bootstrap';
-import { AppDispatch } from './store';
+import { AppDispatch, RootState } from './store';
 import { useDispatch, useSelector } from 'react-redux';
-import { showDeleteModal, showProjectModal, projectsSelectors, updateProjects, updateProjectsLocally, updatePosition } from './features/projects/projectsSlice';
+import { showDeleteModal, showProjectModal, projectsSelectors, updateProjectsLocally, updateProjects } from './features/projects/projectsSlice';
+import updatePojectPosition from './features/projects/projectsProcessing';
 
 type ProjectProps = {
     data: ProjectData,
@@ -18,40 +19,59 @@ const Project = ({ data, setActiveProject, acitiveProject }: ProjectProps) => {
     const [collapsed, setCollapsed] = useState(data.collapsed);
     const [showControls, setShowControls] = useState(false);
     const projects = useSelector(projectsSelectors.selectAll);
+    const parent: ProjectData|null = _.isNil(data.parentId) ? null : useSelector((state: RootState) => projectsSelectors.selectById(state, data.parentId!));
+    // const selectById = (projectId: number) => useSelector((state: RootState) => projectsSelectors.selectById(state, projectId));
+
     const siblingProjects = projects.filter(prj => prj.parentId === data.parentId);
     const dispatch: AppDispatch = useDispatch();
+    const applyUpdate = (childOrderNew: number, parentIdNew: number | null | undefined) => {
+        const updatedProjects = updatePojectPosition(projects, data, childOrderNew, parentIdNew);
 
+        dispatch(updateProjectsLocally(updatedProjects));
+        dispatch(updateProjects(updatedProjects));
+    };
+    // TODO: For avoid calculations each time we can store necessary metadata in db
     const onUpClick = async () => {
-        if (data.childOrder === 0) return;
-
-        const projectAbove: ProjectData = siblingProjects
+        const projectsAbove: ProjectData[] = siblingProjects
                 .filter(prj => prj.childOrder < data.childOrder)
-                .sort((a, b) => b.childOrder - a.childOrder)[0];
-
-        dispatch(updatePosition({ project: data, childOrderNew: projectAbove.childOrder, parentIdNew: data.parentId }));
-
-        // if (!_.isNil(projectAbove)) {
-        //     const oldOrder = data.childOrder;
-        //     const newOrder = projectAbove.childOrder;
-        //     const updatedProjects = [
-        //         { ...projectAbove, childOrder: oldOrder },
-        //         { ...data, childOrder: newOrder }
-        //     ];
-
-        //     dispatch(updateProjectsLocally(updatedProjects));
-        //     dispatch(updateProjects(updatedProjects));
-        // }
+                .sort((a, b) => b.childOrder - a.childOrder);
+        if (projectsAbove.length > 0) {
+            applyUpdate(projectsAbove[0].childOrder, data.parentId);
+        }
     };
     const onDownClick = async () => {
-        // await updateProject(data, ServerAction.DOWN);
+        const projectsBelow: ProjectData[] = siblingProjects
+            .filter(prj => prj.childOrder > data.childOrder)
+            .sort((a, b) => a.childOrder - b.childOrder);
+
+        if (projectsBelow.length > 0) {
+            applyUpdate(projectsBelow[0].childOrder, data.parentId);
+        }
     };
     const onLeftClick = async () => {
-        // await updateProject(data, ServerAction.LEFT);
-        // refreshTasks();
+        if (_.isNil(parent)) return;
+
+        const projectsBelowParent: ProjectData[] = projects
+            .filter(prj => prj.parentId == parent.parentId && prj.childOrder > parent.childOrder)
+            .sort((a, b) => a.childOrder - b.childOrder);
+
+        const childOrderNew = projectsBelowParent.length === 0 ? parent.childOrder + 1 : projectsBelowParent[0].childOrder;
+
+        applyUpdate(childOrderNew, parent.parentId);
     };
     const onRightClick = async () => {
-        // await updateProject(data, ServerAction.RIGHT);
-        // refreshTasks();
+        const projectsAbove: ProjectData[] = siblingProjects
+            .filter(prj => prj.childOrder < data.childOrder)
+            .sort((a, b) => b.childOrder - a.childOrder);
+        if (projectsAbove.length > 0) {
+            const projectAbove = projectsAbove[0];
+            const projectAboveChildren = projects
+                    .filter(prj => prj.parentId === projectAbove.id)
+                    .sort((a, b) => b.childOrder - a.childOrder);
+            const childOrderNew = projectAboveChildren.length === 0 ? 0 : projectAboveChildren[0].childOrder + 1;
+
+            applyUpdate(childOrderNew, projectAbove.id);
+        }
     };
     const children = projects
         .filter(prj => prj.parentId === data.id)
