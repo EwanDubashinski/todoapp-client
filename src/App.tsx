@@ -36,7 +36,7 @@ const App = () => {
                <Nav.Item>
                    {userData.principal.username}
                </Nav.Item>
-               <Nav.Link href="/logout">
+               <Nav.Link href="api/user/logout">
                    Logout
                </Nav.Link>
            </Nav>

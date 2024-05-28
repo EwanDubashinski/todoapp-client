@@ -15,14 +15,18 @@ const Login = () => {
 
    const submit = (event: React.MouseEvent<HTMLElement>) => {
       event.preventDefault();
-      axios.get("/api/user", {
-         auth: {
-            username: email,
-            password: pwd
-         }
+      // axios.get("/api/user/login", {
+      //    auth: {
+      //       username: email,
+      //       password: pwd
+      //    }
+      // })
+      axios.post("/api/user/login", {
+         email: email,
+         password: pwd
       })
       .then(() => {
-         alert("success!");
+         // alert("success!");
          navigate("/");
       })
       .catch(res => {
