@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Button, Col, Collapse, Nav, Row } from 'react-bootstrap';
 import { AppDispatch, RootState } from './store';
 import { useDispatch, useSelector } from 'react-redux';
-import { showDeleteModal, showProjectModal, projectsSelectors, updateProjectsLocally, updateProjects } from './features/projects/projectsSlice';
+import { showDeleteModal, showEditModal, projectsSelectors, updateTreeItemsLocally, updateProjects } from './features/projects/projectsSlice';
 import updatePojectPosition from './features/projects/projectsProcessing';
 
 type ProjectProps = {
@@ -27,7 +27,7 @@ const Project = ({ data, setActiveProject, acitiveProject }: ProjectProps) => {
     const applyUpdate = (childOrderNew: number, parentIdNew: number | null | undefined) => {
         const updatedProjects = updatePojectPosition(projects, data, childOrderNew, parentIdNew);
 
-        dispatch(updateProjectsLocally(updatedProjects));
+        dispatch(updateTreeItemsLocally(updatedProjects));
         dispatch(updateProjects(updatedProjects));
     };
     // TODO: For avoid calculations each time we can store necessary metadata in db
@@ -110,7 +110,7 @@ const Project = ({ data, setActiveProject, acitiveProject }: ProjectProps) => {
                 <Button variant="outline-primary" onClick={onLeftClick} size="sm">&#9664;</Button>
                 <Button variant="outline-primary" onClick={onRightClick} size="sm">&#9654;</Button>
                 {/* <Button variant="outline-primary" onClick={() => editProject(data)} size="sm">&#9998;</Button> */}
-                <Button variant="outline-primary" onClick={() => dispatch(showProjectModal(data))} size="sm">&#9998;</Button>
+                <Button variant="outline-primary" onClick={() => dispatch(showEditModal(data))} size="sm">&#9998;</Button>
                 {/* <Button variant="outline-primary" onClick={() => deleteProject(data)} size="sm">&#128465;</Button> */}
                 <Button variant="outline-primary" onClick={() => dispatch(showDeleteModal(data))} size="sm">&#128465;</Button>
             </Col>

@@ -15,25 +15,17 @@ const Login = () => {
 
    const submit = (event: React.MouseEvent<HTMLElement>) => {
       event.preventDefault();
-      // axios.get("/api/user/login", {
-      //    auth: {
-      //       username: email,
-      //       password: pwd
-      //    }
-      // })
       axios.post("/api/user/login", {
          email: email,
          password: pwd
       })
       .then(() => {
-         // alert("success!");
          navigate("/");
       })
       .catch(res => {
          alert(res.message);
       });
    };
-   // Buffer.from('your string here').toString('base64')
    return (<>
       <Container className="d-flex align-items-center justify-content-center min-vh-100">
          <Row>

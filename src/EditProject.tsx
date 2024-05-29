@@ -3,16 +3,16 @@ import Form from 'react-bootstrap/Form';
 import { Modal } from 'react-bootstrap';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProject, hideProjectModal, setCurrentProjectName, updateProject } from './features/projects/projectsSlice';
+import { createProject, hideEditModal, setCurrentTreeItemName, updateProject } from './features/projects/projectsSlice';
 import { AppDispatch, RootState } from './store';
 
 
 const EditProject = () => {
     const show = useSelector((state: RootState) => state.projects.showProjectModal);
-
-    const handleClose = () => dispatch(hideProjectModal());
-    const data = useSelector((state: RootState) => state.projects.currentProjectData);
     const dispatch: AppDispatch = useDispatch();
+
+    const data = useSelector((state: RootState) => state.projects.currentProjectData);
+    const handleClose = () => dispatch(hideEditModal(data));
     return (<>
         <Modal show={show} onHide={() => handleClose()}>
             <Modal.Header closeButton>
@@ -26,7 +26,7 @@ const EditProject = () => {
                             type="text"
                             value={data?.name}
                             autoFocus
-                            onChange={(e) => dispatch(setCurrentProjectName(e.target.value))}
+                            onChange={(e) => dispatch(setCurrentTreeItemName(e.target.value))}
                         />
                     </Form.Group>
                 </Form>

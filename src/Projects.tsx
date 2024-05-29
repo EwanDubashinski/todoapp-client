@@ -4,21 +4,23 @@ import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import EditProject from './EditProject';
 import { useDispatch, useSelector } from 'react-redux';
-import { showProjectModal, projectsSelectors } from './features/projects/projectsSlice';
+import { showEditModal, projectsSelectors } from './features/projects/projectsSlice';
 import DeleteProject from './DeleteProject';
+import { AppDispatch, RootState } from './store';
+
 
 type ProjectsProps = {
     setActiveProject: (active: ProjectData) => void,
     acitiveProject: ProjectData | null,
 };
 
-const Projects = ({ /* projects, refreshProjects,*/ setActiveProject, acitiveProject }: ProjectsProps) => {
-    const dispatch = useDispatch();
+const Projects = ({ setActiveProject, acitiveProject }: ProjectsProps) => {
+    const dispatch: AppDispatch = useDispatch();
     const projects = useSelector(projectsSelectors.selectAll);
 
     return (<aside className='projects'>
                 <h2>Projects</h2>
-                <Button variant="primary" onClick={() => dispatch(showProjectModal(null))}>+</Button>
+                <Button variant="primary" onClick={() => dispatch(showEditModal(null))}>+</Button>
                     {projects
                         .filter(prj => _.isUndefined(prj.parentId))
                         .sort((a, b) => (a.childOrder ?? 0) - (b.childOrder ?? 0))

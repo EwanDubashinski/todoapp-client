@@ -9,7 +9,7 @@ const DeleteProject = () => {
     const data = useSelector((state: RootState) => state.projects.currentProjectData);
 
     const dispatch: AppDispatch = useDispatch();
-    const handleClose = () => dispatch(hideDeleteModal());
+    const handleClose = () => dispatch(hideDeleteModal(data));
 
     return (
         <Modal show={show} onHide={handleClose}>
