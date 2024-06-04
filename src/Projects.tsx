@@ -6,7 +6,7 @@ import EditProject from './EditProject';
 import { useDispatch, useSelector } from 'react-redux';
 import { showEditModal, projectsSelectors } from './features/projects/projectsSlice';
 import DeleteProject from './DeleteProject';
-import { AppDispatch, RootState } from './store';
+import { AppDispatch } from './store';
 
 
 type ProjectsProps = {

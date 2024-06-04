@@ -1,4 +1,4 @@
-import { TreeData, TreeState, PendingAction, RejectedAction, DraftableEntityState } from './treetypes';
+import { TreeData, TreeState, PendingAction, RejectedAction, DraftableEntityState } from './treeTypes';
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import type { SerializedError, UnknownAction, CreateSliceOptions } from '@reduxjs/toolkit';
 
