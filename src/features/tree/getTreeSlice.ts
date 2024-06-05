@@ -3,11 +3,12 @@ import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/too
 import type { SerializedError, UnknownAction, CreateSliceOptions } from '@reduxjs/toolkit';
 
 import axios from 'axios';
-import TreeItemsServerActions from './TreeItemsServerActions';
+import getServerActions from './getServerActions';
 
 
 export default function getTreeSlice<T extends TreeData>(name: string) {
    type StateArgument = DraftableEntityState<T, T["id"]> & TreeState<T>;
+   const TreeItemsServerActions = getServerActions(name);
 
    const emptyEntity: T = { id: -1, childOrder: -1 } as T;
 
